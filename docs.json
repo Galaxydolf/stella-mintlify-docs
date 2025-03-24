@@ -1,9 +1,9 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
+  "theme": "maple",
+  "name": "Agentify JP",
   "colors": {
-    "primary": "#16A34A",
+    "primary": "#0075DB",
     "light": "#07C983",
     "dark": "#15803D"
   },
@@ -25,6 +25,7 @@
             "group": "Essentials",
             "pages": [
               "essentials/markdown",
+              "welcom/welcome",
               "essentials/code",
               "essentials/images",
               "essentials/settings",
@@ -33,51 +34,12 @@
             ]
           }
         ]
-      },
-      {
-        "tab": "API Reference",
-        "groups": [
-          {
-            "group": "API Documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
-        ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "https://r2.xmsex.net/2025/03/1e8b98d895df10bbcc2d0c3eb0bb5c44.png",
+    "dark": "https://r2.xmsex.net/2025/03/1e8b98d895df10bbcc2d0c3eb0bb5c44.png"
   },
   "navbar": {
     "links": [
