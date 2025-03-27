@@ -1,0 +1,137 @@
+---
+title: "権限管理"
+---
+
+## 権限の定義
+
+**権限タイプ:**
+
+* **メニュー権限：**&#x30E6;ーザーがページ内の特定の機能を「閲覧・編集・無効化」できるかを制御
+
+* **データ権限**：他のユーザーや組織がアップロードした**エージェント・ナレッジベース・ツール**を閲覧・使用できるかを制御
+
+* **ロール権限**：ロールには特定のメニュー権限とデータ権限が含まれる。管理者または上位権限を持つユーザーが、アカウントにロールを割り当てることで、ユーザーの権限範囲を管理可能
+
+**権限の管理:**
+
+* エージェントやナレッジベースの作成可否は、メニュー権限により決定
+
+* 組織構造が明確な企業や部門別の役割が決まっている場合、ロールを定義することで一括管理が可能
+
+**権限の付与:**
+
+* エージェントの使用可否、および使用可能なエージェントは、メインアカウントがサブアカウントに対して付与する権限によって決定
+
+| **メインメニュー** | **サブメニュー** | **操作権限**                      | **データ権限**  |
+| ----------- | ---------- | ----------------------------- | ---------- |
+| エージェント一覧    |            | 全選択・閲覧                        | 全部         |
+| Myエージェント    |            | 全選択・作成・編集・削除・公開・非公開・配信        | Myエージェントのみ |
+| ナレッジベース     |            | 全選択・閲覧・作成・編集・削除               |            |
+| ツール         | カスタムツール    | 全選択・閲覧・作成・削除・公開・非公開・クローリングツール |            |
+| システム管理      | アカウント管理    | 全選択・閲覧・編集・削除                  |            |
+|             | ロール管理      | 全選択・閲覧・編集・削除                  |            |
+|             | 組織管理       | 全選択・閲覧・編集・削除                  |            |
+|             | テナント管理     | 全選択・閲覧・作成・編集・削除               |            |
+| エージェント管理    | エージェント管理   | 全選択・閲覧                        |            |
+|             | 使用量管理      | 全選択・閲覧                        |            |
+
+## 初期設定
+
+**デフォルトアカウント**：
+
+1. システムは、企業向けに root アカウントを自動作成し、デフォルトで「スーパー管理者」ロールを付与する
+
+2. ユーザーは「アカウント管理」から新規アカウントを作成し、ロールや組織を割り当てることで、アクセス権限を制御できる
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MGJlNzQxN2I0NDJhZGI5NGY2YjMzMzZhYzY4MjViMzJfY0RmYTdBZVdvbWpIekVVZVA4UjJoZThLYjVsU3Y4N01fVG9rZW46UGFEWGJ0aUltb1FvQ2d4b0h2TGN1SjVQbnJkXzE3NDMwNDM3NTA6MTc0MzA0NzM1MF9WNA)
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YWQzYzA4OTE1ZGQ2ZDE5ZmY2N2I1MWRlNGI0OWE1NGZfQnNtOGs4VUczVnFraFA2clp2eWdhQm9HQkl1S1NNckRfVG9rZW46WE5NTmJ5Q09ob3didUh4N1c3QmNrVXpjbno3XzE3NDMwNDM3NTA6MTc0MzA0NzM1MF9WNA)
+
+## ロール管理
+
+**スーパー管理者ロール**：
+
+* システムは、新規アカウント作成時に「スーパー管理者」ロールを自動生成する
+
+* このロールはすべての権限を有し、削除不可
+
+**メニュー権限**：
+
+* **機能**：ロールごとに、ページ左側のメニューで特定の機能を「閲覧・編集・無効化」できるかを制御
+
+* **権限設定例（ 「ナレッジベース」の場合）**：
+
+  * **閲覧権限**：ナレッジベースの閲覧のみ可能（作成・編集・削除不可）
+
+  * **作成権限**：ナレッジベースの閲覧・作成が可能（編集・削除不可）
+
+  * **編集権限**：ナレッジベースの閲覧・編集が可能（作成・削除不可）
+
+  * **削除権限**：ナレッジベースの閲覧・削除が可能（作成・編集不可）
+
+**データ権限**：
+
+* **機能**：ロールごとに、特定の組織データへのアクセス権限を管理する
+
+* **権限範囲の選択**：
+
+  * **すべて**：すべての組織データにアクセス可能
+
+  * **本人のみ**：自分のデータのみアクセス可能
+
+  * **所属部門のみ**：自分の所属部門のデータにアクセス可能
+
+  * **所属部門 + 下位部門**：访自分の所属部門とその下位部門のデータにアクセス可能
+
+  * **カスタム**：組織構造に基づき、アクセス範囲を自由に設定可能
+
+* **特别说明**：
+
+  * **「所属部門」と「所属部門 + 下位部門」の違い**：
+
+    * **例:** 「開発部」内に「バックエンドチーム」と「フロントエンドチーム」があり、バックエンドチームのメンバー「タロウ」がいる場合
+
+    * **「所属部門のみ」を選択:** フロントエンドチームのデータにはアクセスできるが、タロウのデータにはアクセスできない
+
+    * **「所属部門 + 下位部門」を選択:** フロントエンドチームのデータに加え、タロウのデータにもアクセス可能
+
+**エージェント & ツールのアクセス**：
+
+* **機能**：ユーザーに「本人以外のデータアクセス権限」が付与されると、システムはエージェント・ナレッジベース・ツールを以下の2つのタブに分類する
+
+  * **「マイエージェント」：個人データを表示**
+
+  * **「他者のエージェント」：他のユーザーのデータを表示**
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MDU2NTMxMzY3NWQyNTU2MGQ4ODI2YTk5ZTFjNTE3NDRfdDlYTDJXbHkyYXpHTjN3MjE0S1N1NkhZYmhURk83RkhfVG9rZW46Rm1xUmJNbm51b0I1YnN4QXNPbWMwWEJIbkRnXzE3NDMwNDM3NTA6MTc0MzA0NzM1MF9WNA)
+
+## ユーザー管理
+
+**ユーザー & アカウント管理**：
+
+* ユーザー管理およびアカウント管理機能では、プラットフォームの各ユーザーにアカウントを割り当てる
+
+* すべてのアカウントは、必ず1つの組織に所属し、最低1つのロールを割り当てる必要がある
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=NzQ4ZGRkODM1MGRjYzcxMmViZjhhZDZkZjMwYWY0MTRfUUlRSDJmUVEyRUNkeUVHR2hHR1hiaW5nYjMzS1I1akdfVG9rZW46UGJwc2JydnZBb2VRVUt4S3VZSmNkbUo1bkllXzE3NDMwNDM3NTA6MTc0MzA0NzM1MF9WNA)
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MTdiNjQ4ODBjZDY2Mjk1NmZkNDdjYjlhNGZmNDM3YzdfeEJjam1mRlFzNmpLY2RYNnhZZDVRaHZQcEZzNHBqUjZfVG9rZW46R1dpZ2I3dW1Hb0tiR294ejNRcGN5SFpobno3XzE3NDMwNDM3NTA6MTc0MzA0NzM1MF9WNA)
+
+## 組織管理
+
+**組織構造とアカウントの関連付け**：
+
+* 1つの組織には複数のアカウントを含めることが可能
+
+* 組織およびその階層構造を定義することで、アカウントの機能権限やデータアクセスを管理可能
+
+**推奨される管理方法**：
+
+* 同じ業務部門で、同一のデータ・機能権限を持つアカウントは、同じ組織に統合することを推奨（管理プロセスが簡素化、運用効率向上）
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MWUyMDk2M2RiMjJiMjAxZDExMGNjNGQxZWMwMWNhNDNfTldhTnJzaDRkZlBqcU5RZTFNZ2VFS0dpY0FXQ2ZnRXVfVG9rZW46WXlPbGJWb2xSb3pxeFZ4a2p0Y2NHT2o5bmNiXzE3NDMwNDM3NTA6MTc0MzA0NzM1MF9WNA)
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YzFjYzVhMmQ4NjY5YWExNTM4MTdiYTljYjQ5NTdjMzdfU3U2aEVBbUVkaWx4d0ppbWYyOFZiU0pLOGkwWGd4cHRfVG9rZW46VkFKZGJ2N0tIb1dFSGJ4YTlMSGNNQnMwbmhoXzE3NDMwNDM3NTA6MTc0MzA0NzM1MF9WNA)
+
+
+
