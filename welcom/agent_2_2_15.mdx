@@ -1,0 +1,34 @@
+---
+title: "メモリ変数の追加"
+---
+
+## メモリ変数の追加
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=OTQ5MGFjZDgzNDIwMWI5OTdjMTEzMzEyNzljYWE2YmVfMGk2bU93U2tROUVaeW1KWGxSU0JBTHhSUm9WY0ZXaXBfVG9rZW46QzBBMGJLbDU3b2RIajl4NEthemMwcm45bmxiXzE3NDMwNDI5Mzk6MTc0MzA0NjUzOV9WNA)
+
+**モジュール概要**
+
+* のモジュールは、エージェント内で\*\*一時的な変数（メモリ変数）**を保存するために使用されます。**&#xA;**&#x20;他のエージェントの中で本エージェントを「子エージェント」として使用する際、このメモリ変数により**エージェント間の出力値の受け渡し（クロスエージェント参照）\*\*が可能となります。
+
+
+
+**モジュールパラメータ**
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=NDkzZDI2OTBhMTQ5NzY3YmI2ZDkzZmYyMTJhNjM2N2VfQlJFSXR6ODNhV1FBanhoWE92WnJ6UHNQUHRvakhsQWhfVG9rZW46QU5hb2JFRndSb0w1akh4bWNjOWNFZ2o5bkhmXzE3NDMwNDI5Mzk6MTc0MzA0NjUzOV9WNA)
+
+
+
+| パラメータ名      | タイプ | 機能説明                                                                                      |
+| ----------- | --- | ----------------------------------------------------------------------------------------- |
+| **データタイプ**  | -   | テキスト情報、ブール値、画像、ドキュメント、ナレッジベース検索結果、任意型 に対応                                                 |
+| **フィールドキー** | -   | 本エージェント内で**一意なキー名**を指定します。例：`result`、`result2` など。&#xA;他モジュールからは `{{result}}` の形式で参照可能です。 |
+| **フィールド名**  | -   | メモリ変数一覧での表示名です。中国語／英語のどちらでも可。可読性向上のため任意で記述。                                               |
+
+### 使用上の注意
+
+* メモリ変数は、**上流モジュールの出力と接続することで値が保存**されます。
+
+* 保存したいデータの出力タイプと一致するよう、メモリ変数の型を事前に設定してください。
+
+* 正しく接続されていない場合、値が保持されず、他エージェントでの参照に失敗する可能性があります。
+

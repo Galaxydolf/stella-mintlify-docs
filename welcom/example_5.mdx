@@ -1,0 +1,274 @@
+---
+title: "Web情報収集ツール 活用ガイド"
+---
+
+本記事では、新華網の「新華文化」セクションを例に、Lingda プラットフォームのクローラーツールの使い方と設定ロジックを紹介します😊
+
+# はじめに：プラットフォームクローラーの利用ロジック
+
+ユーザーは、Lingda プラットフォームの「ツール」モジュール内で「ウェブスクレイピング」タスクを作成・利用することができます。一般的なユーザーのニーズとしては、あるページに並ぶ複数のタイトル情報をもとに、それぞれのタイトルがリンクされている詳細ページから、必要なコンテンツ情報をクローリングしたいというものです。
+
+これに基づき、Lingda プラットフォームのクローラーツールの利用ロジックは以下のようになります：
+
+・**複数のタイトル情報を含むページのURLを入力**
+
+・**正規表現を使って、取得したいリンクを抽出**
+
+・**抽出したリンク先のページを一括でクロールし、必要なコンテンツ情報を取得**
+
+# 1. クローラータスクの新規作成
+
+まずは、プラットフォーム上で新しいクローラータスクを作成します。作成方法は以下の通りです：
+
+ログイン後、左側メニューの 「ツール」→「公式ツール」→「Web情報収集」 をクリックし、右上の「新規クローラータスク」ボタンをクリックします。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YjRkYTYzZDk0OTY1YWM2NjIxN2ZlODIwYjFhMWMzYzJfMzhKaWJmOHhGYmZJaktaS3IweVY1ZnhHanlHdHhrRXBfVG9rZW46VlV0UGJ5Zkw3b0ZyMG14bk9TUWNZNklqbkVnXzE3NDMwNDQyMDI6MTc0MzA0NzgwMl9WNA)
+
+# 2. クローラー設定の説明
+
+## 2.1 クローラー設定
+
+タスクを開始するにあたって、情報ソースとなるWebページのURLを指定する必要があります。
+&#x20;このURLには、**複数のニュース記事のタイトルリンク**が含まれている必要があります（タイトルをクリックすると、各記事の詳細ページに遷移する構造）。
+
+今回の例では、新華網の「新華文化」セクションのURLを使用します：<http://www.news.cn/culture/>
+
+このURLを「クローラー対象URL」欄にコピー＆ペーストしてください。
+
+&#x20;また、このクローラータスクにわかりやすい名前を付けましょう（例：「新華網-新華文化」 ） — これにより、後から確認しやすくなります。
+
+設定が完了したら、「次へ」をクリックし、「フィールド設定」画面に進みます。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YjM5MTJhYjU3ZDJjYWRlMGJkZjM1YzMwMmFiMTE4ZmRfRkgwZXZCMFo5WjlIVDZyZzlja0p5TWFlOVJacDBvdzFfVG9rZW46WUJZNWJybWhxb295M1J4WTVxZGNzZFhybktkXzE3NDMwNDQyMDI6MTc0MzA0NzgwMl9WNA)
+
+## 2.2 クローラーフィールド設定（１）
+
+まず、「クローラー項目を追加」ボタンをクリックします。
+&#x20;これは最初に設定するスクレイピング項目です。この項目の目的は、先ほど入力したトップページのURLから **取得対象となるニュース記事リンクを抽出** し、各リンク先のページにアクセスして本文などの内容を取得することです。
+
+このトップページには、多くのニュースリンクが混在しているため、**正規表現**を使って必要なリンクだけをフィルタリングする必要があります。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MGZiZTQwYjkxZGYyNjkzNTZjMmM2NGIwMmIxN2ZjYTNfZ2xscHRSaUkwU1Y2bllKZlUyRUFMaDVIZHNWQWNsVURfVG9rZW46WlBkSGJwRGFrb2t6dTd4OXJYSWMzQzlTblVlXzE3NDMwNDQyMDI6MTc0MzA0NzgwMl9WNA)
+
+フィールドキー： このキーはニュース記事リンク群を表す名称です。
+&#x20;　ここでは `all` を設定します（意味：「正規表現で抽出されたすべてのリンク」）。
+&#x20;　このキー名は後続のエージェント設計でも使用されるため、初心者は `all` のような既定の名称を使うことをおすすめします。
+
+フィールドの説明： このキーに関する補足説明を記述します。今回はニュース記事のリンクであるため、例えば「記事リンク」や「ページリンク」としても構いません。説明は個人の理解に合わせて自由に記述できます。
+
+フィールドタイプ：ドロップダウンで選択できます：
+
+* `string`：ページ内のテキストなどを抽出したい場合
+
+* `ページ（web page）`：リンクを抽出したい場合
+  &#x20;　→ 今回は「リンク（URL）」を抽出したいので、「ページ（web page）」を選択してください。
+
+フィールド抽出ルール：HTMLコードに基づいた抽出ルールを設定します。
+
+&#x20;　今回は正規表現を使用して「/culture/」を含むニュース記事リンクだけを抽出します。
+&#x20;実際のページを観察すると、必要なリンクはすべて `/culture/` をパスに含んでいることが分かります。これを元に、以下のような正規表現を設定できます：
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=NDI5MTUyMzYzZWFiNTIwYzY1MDVlYmQ5OTEyNzk0YTVfZWJKR2UyUEE0Q2dkc1hWQ2o3OHVHYXNCUjVXc2pRODNfVG9rZW46WHM3RGJxa0dQb0haZ2l4UjBxdmN6WDltbm1oXzE3NDMwNDQyMDI6MTc0MzA0NzgwMl9WNA)
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MGUyNjIyMmVmZTEyMTFiODA0NzAyYTI4MGU1MTkxZWVfWlNadTdkM3ZXdlZUd0FKMFE2Y2Qxc0NnVDBrVHF5UWlfVG9rZW46TXZTQmJUa3ZYbzBTMHN4OHZhbGNnZjJ2bmlnXzE3NDMwNDQyMDI6MTc0MzA0NzgwMl9WNA)
+
+
+
+**質問：「ページのHTMLコードを見られない／わからない場合、どうすればいいですか？」**
+
+
+
+上記の説明を踏まえて、「フィールド抽出設定」の具体的な内容は以下のとおりです：
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MjNkNDdlMDIyZjYwMzIxNWMxMjUyN2ZmNzM4OTc1MTFfc290QU9QenNFRjBTSGx0RDU2MXRUQmtlREZIZmI2WXdfVG9rZW46SkF3Q2JKQ3RSb0tYdmt4Wk85WWMyYkRtbmVmXzE3NDMwNDQyMDI6MTc0MzA0NzgwMl9WNA)
+
+付録：クローラーフィールド設定の詳細
+
+**`フィールドキー`**`：all`
+
+**`フィールド説明`**`：Webページ`
+
+**`フィールドタイプ`**`：Webページ（リンクタイプ）`
+
+**`フィールド抽出ルール`**`：`
+
+`getHtml`
+
+`links`
+
+`regex=>.`*`/culture/.`*
+
+`all`
+
+## 2.3 クローラーフィールド設定（２）
+
+上記の設定が完了すると、「フィールドタイプ」が「网页（リンク）」になっているため、さらに下層の設定が可能になります。
+
+&#x20;「Webページ」横の青い【抽出】ボタンをクリックしてください。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTU4MDRhYTQyMTczMzhmYzdiMGZmNGRjOTk2YjczYWFfNldkclBGZGEzRXM3cHNzSDBwZ3RDNVpiTHEzb241b1FfVG9rZW46SlFFSmJxT2Zob1E0dWJ4Wm95bWN6eEdxbjBiXzE3NDMwNDQyMDI6MTc0MzA0NzgwMl9WNA)
+
+クリックすると、当該フィールドの下に新たに「抽出フィールドを追加」ボタンが表示されます。
+
+&#x20;ここでは、正規表現で抽出された各ニュースリンクのページから、以下3つの情報を取得する設定を行います：
+
+* ニュースのタイトル
+
+* ニュース本文
+
+* 公開日
+
+まずは「ニュースのタイトル」を例に、その設定方法を説明します。
+
+「all」というキーの下にある【抽出フィールドを追加】をクリックします。
+
+以下のように設定してください：
+
+* フィールドキー：`title`
+
+* フィールドの説明：ニュースタイトル
+
+* フィールドタイプ：`string`
+
+* 抽出ルール：該当のウェブページのHTML構造に基づき `xpath` で指定（Xpathの使い方は「クローラースクリプトガイド」参照）
+
+※ヒント：AIに助けを求めるとXPathの生成を手伝ってくれるかもしれません👏🏻
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YzFjYWNmZjE2OTljYzc5MmJiMTc1NGM5ZjQyZTY4MzBfT05xZHBISjRoYVMzUzVKNXRPRGRSSmVwTk5rSUt5bWdfVG9rZW46QWlodmJIaGpUbzFhaFJ4cUxRT2NGdEk5bkxiXzE3NDMwNDQyMDI6MTc0MzA0NzgwMl9WNA)
+
+設定例（以下の図を参照）
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=NmI4ZGI0YWZiYTMyOTc5NGRiNDUxMzlmNzMwNzQ4NmZfekl2QTI3NEtPb2JtalNHQ3c0RkdIRHFreDJhQW9iVGRfVG9rZW46WG1rM2JaUzJZb0NaV0V4TUV0RWNpM0VBbjJmXzE3NDMwNDQyMDI6MTc0MzA0NzgwMl9WNA)
+
+「ニュースタイトル」の設定例に続き、
+&#x20;「公開日」および「ニュース本文」の設定も、**上記の「ニュースタイトル」と同様の手順**で行ってください。
+
+**注意事項：** 各フィールドのキー名（`title`、`content`、`date` など）は、後続の Agent 処理に影響します。**必ず第4章の内容を参考に、正しいキー名を設定してください。**
+
+すべてのフィールド設定が完了したら、「次へ」をクリックして進みます。
+
+付録：クローラーフィールド設定の詳細
+
+1. ニュースタイトル
+
+`フィールドキー：title`
+
+`フィールド説明：ニュースタイトル`
+
+`フィールドタイプ：string`
+
+`フィールド抽出ルール：`
+
+`getHtml`
+
+`xpath=>//div[@class='head-line clearfix']/h1/allText()`
+
+`get`
+
+
+
+* ニュース本文
+
+`フィールドキー：content`
+
+`フィールド説明：ニュース内容`
+
+`フィールドタイプ：string`
+
+`フィールド抽出ルール：`
+
+`getHtml`
+
+`xpath=>//span[@id='detailContent']//allText()`
+
+`get`
+
+
+
+* 公開日
+
+`フィールドキー：date`
+
+`フィールド説明：公開日`
+
+`フィールドタイプ：string`
+
+`フィールド抽出ルール：`
+
+`getHtml`
+
+`xpath=>//div[@class='header-time left']/allText()`
+
+`get`
+
+
+
+以上の設定がすべて完了したら、「エクスポート設定」ステップに進み、対応するエージェントを選択してください。
+このエージェントは、クローラーされた内容を加工し、ナレッジベースに保存する役割を担います。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MWZlZTAzY2YxMmVjY2RlODdkM2EzNjZkNTQzYjI3MWRfVVpkT2E1UXp6cWpwNDVSejlNRHZrV2VzZXdHdVF1eTNfVG9rZW46S05vYmJsT2t4b2k2MWV4SDBpWGNac2Q5bmtoXzE3NDMwNDQyMDI6MTc0MzA0NzgwMl9WNA)
+
+# 3. タスクの開始
+
+クローラータスクページに戻り、**クローラーを起動する前に「定期収集」間隔の設定**が必要です。
+&#x20;プラットフォームでは「分単位」「時間単位」「日単位」の3つの間隔レベルをサポートしており、用途に応じて柔軟に設定できます。
+
+設定が完了したら、**［起動］ボタンをクリック**すると、クローラータスクが即時実行されます。
+
+数分後、次の方法でクロールの成功を確認できます：
+
+* 「クロール済みリンク数」の表示で、対象ページの取得状況を確認
+
+* 対応するナレッジベースを開き、**収集した内容が指定フォーマットで保存されているかどうか**をチェック
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YzhiOGEyMWU1MzY3N2MzNzgwOTU4NjE4OGQwODhmOTJfMmVJYUdhZEM1SllmbGlCU1ROc21VU0tEZ25kV0xNbUZfVG9rZW46VjVRN2JINFdwb3c1Rkd4SVVqYmNtUGVCbktjXzE3NDMwNDQyMDI6MTc0MzA0NzgwMl9WNA)
+
+
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MzM2OTQ3NGYyZWYwOTU3ZTRkZDBhYTg5YjU5Y2ZlMzlfSVdrYm1kd3Y5ZDFXTTJMYXJXQVZ1QmlqVDlLaWR5ckZfVG9rZW46VHFMUWJBQzRjb1ZZZ3V4eFZSYmNkWFMwbm1jXzE3NDMwNDQyMDI6MTc0MzA0NzgwMl9WNA)
+
+# 4. 補足：クローラータスクに対応するエージェントの設計方針
+
+このセクションでは、クローラーによって収集されたデータを処理する **エージェントの設計ロジックを簡潔にご紹介します。**
+
+すでに前述したとおり、各ニュースページから取得される主要フィールド（key）は以下の3つです：
+
+* `title`：ニュースのタイトル
+
+* `content`：ニュース本文
+
+* `date`：公開日
+
+さらに、正規表現で抽出したニュース記事のリンクURL も自動的に取得され、変数として保持されます。
+
+プラットフォームでは、各フィールドを **変数（key名）として扱い**、エージェントを設計する際はこれらの変数を**目的に応じた形式で整形・結合**し、最終的にナレッジベースに保存する必要があります。
+
+#### 今回のケース：各ニュースページの内容を**ナレッジベースの1つのスライス**として保存します。
+
+* **スライス内容（content）**：ニュースの本文（`content`）
+
+* **スライスタイトル（title）**：ニュースのタイトル（`title`）、URL、公開日（`date`）を組み合わせたもの
+
+このタイトルの整形は、エージェントのフロー内で「返信確定」モジュールを使って以下のような形式に出力し、そのままナレッジベースに保存します：
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MmFlMjhlOWRmYzcwZTMwMmM1ZGRkNmJhOGIxZmQwOGRfSEF3dlNXS005c2FzSDdsOGRYYWtEclRMY1hlczIzNjFfVG9rZW46UWZKY2JaU2pvb0N6UW14NFFoVmNONEE0bkZoXzE3NDMwNDQyMDI6MTc0MzA0NzgwMl9WNA)
+
+#### Agent 設定ファイルの使用方法：
+
+以下の内容を **コピーしてエージェントのフロー画面にインポート**してください。
+&#x20;※ インポート後、「ナレッジベースに保存」モジュール内のナレッジベースは、必ず**ご自身のアカウントで作成したナレッジベースに置き換えてください。**
+
+
+
+```json
+{"nodes":[{"data":{"outputs":[{"valueType":"string","description":"引用变量：{{userChatInput}}","label":"文本信息","type":"source","targets":[],"key":"userChatInput","required":false},{"valueType":"file","description":"以JSON数组格式输出用户上传文档列表，若为文档比对，包含分组信息","label":"文档信息","type":"source","targets":[],"key":"files","required":false},{"valueType":"image","description":"以JSON数组格式输出用户上传的图片列表","label":"图片信息","type":"source","targets":[],"key":"images"},{"valueType":"boolean","description":"当未点击任何按钮时值为true","label":"未点击按钮","type":"source","targets":[],"key":"unclickedButton"},{"valueType":"boolean","description":"运行完成后开关打开,下游链接组件开始运行。","label":"模块运行结束","type":"source","targets":[{"targetHandle":"switch","target":"ebf64b07-3815-4238-9f96-8bb8d8fd458a"},{"targetHandle":"switch","target":"ef746911-92eb-4934-9d67-912cfdf37e17"}],"key":"finish","required":false}],"moduleType":"questionInput","inputs":[{"connected":true,"valueType":"boolean","description":"同时满足上游所有条件方可激活当前组件执行逻辑","label":"联动激活","type":"target","keyType":"trigger","value":false,"key":"switch"},{"connected":true,"valueType":"boolean","description":"同时满足上游任一条件即可激活当前组件执行逻辑","label":"任一激活","type":"target","keyType":"triggerAny","value":false,"key":"switchAny"},{"valueType":"boolean","description":"输入文本开关","label":"输入文本","type":"switch","value":true,"key":"inputText"},{"valueType":"boolean","description":"上传文档开关","label":"上传文档","type":"switch","value":false,"key":"uploadFile"},{"valueType":"boolean","description":"上传图片开关","label":"上传图片","type":"switch","value":false,"key":"uploadPicture"},{"connected":false,"hasConnected":false,"already":false,"valueType":"boolean","description":"文档审核开关","label":"文档审核","trigger":false,"type":"switch","value":false,"key":"fileUpload","required":false},{"connected":false,"hasConnected":false,"already":false,"valueType":"boolean","description":"是否开启文档比对功能","label":"是否文档对比","trigger":false,"type":"checkBox","value":false,"key":"fileContrast","required":false},{"connected":false,"hasConnected":false,"already":false,"valueType":"any","description":"上传的文件列表,如果开启了文档对比,每个分组只能上传一个文件","label":"文档分组","trigger":false,"type":"table","value":[{"groupName":"文档示例4"},{"groupName":"文档示例1"},{"groupName":"文档示例3"}],"key":"fileInfo","required":false},{"valueType":"boolean","description":"是否作为初始全局input","label":"是否作为初始全局input","type":"hidden","value":true,"key":"initialInput"}],"intro":"用户输入入口,对话中用户的输入信息,与其他模块连接,一般作为起始模块","name":"用户提问","disabled":false},"id":"simpleInputId","position":{"x":-1980.5466844048071,"y":2348.3915571508555},"type":"custom","events":{}},{"data":{"outputs":[{"valueType":"boolean","description":"运行完成后开关打开，下游链接组件开始运行。","label":"模块运行结束","type":"source","targets":[],"key":"finish"}],"moduleType":"storeToKnowledgeBase","inputs":[{"connected":true,"valueType":"boolean","description":"同时满足上游所有条件方可激活当前组件执行逻辑","label":"联动激活","type":"target","keyType":"trigger","value":false,"key":"switch"},{"connected":true,"valueType":"boolean","description":"同时满足上游任一条件即可激活当前组件执行逻辑","label":"任一激活","type":"target","keyType":"triggerAny","value":false,"key":"switchAny"},{"connected":true,"valueType":"string","description":"必填项，当没有连接，该组件无法生效","label":"数据内容","type":"target","value":"","key":"data"},{"connected":true,"valueType":"string","description":"必填项，知识库中的数据集名称，同名的数据集会被覆盖","label":"数据集名称","type":"target","key":"dsName","required":true},{"connected":false,"valueType":"object","description":"存储数据到知识库高级配置","label":"高级设置","type":"target","value":{"chunkSize":1200,"coverageRate":0.15,"sliceType":0},"key":"kbConfig","required":true},{"valueType":"array","description":"","label":"选择知识库","type":"selectKnowledgeBase","value":[{"avatarUrl":"/assets/avatar/1.png","name":"新华网-新华文化","description":"存取来自新华网-新华文化栏的新闻内容","id":1426}],"key":"knowledgeBase","required":true}],"intro":"存储数据到知识库","name":"存储到知识库","disabled":false},"id":"aff271bf-6433-4063-a265-dd8d98a6ba66","position":{"x":-707.5134854778905,"y":2081.1422306464547},"type":"custom","events":{}},{"data":{"outputs":[{"valueType":"string","description":"回复内容原样输出。","label":"回复内容","type":"source","value":"","targets":[{"targetHandle":"dsName","target":"aff271bf-6433-4063-a265-dd8d98a6ba66"}],"key":"text"},{"valueType":"boolean","description":"运行完成后开关打开，下游链接组件开始运行。","label":"模块运行结束","type":"source","targets":[{"targetHandle":"switch","target":"aff271bf-6433-4063-a265-dd8d98a6ba66"}],"key":"finish"}],"moduleType":"confirmreply","inputs":[{"connected":true,"valueType":"boolean","description":"同时满足上游所有条件方可激活当前组件执行逻辑","label":"联动激活","type":"target","keyType":"trigger","value":false,"key":"switch"},{"connected":true,"valueType":"boolean","description":"同时满足上游任一条件即可激活当前组件执行逻辑","label":"任一激活","type":"target","keyType":"triggerAny","value":false,"key":"switchAny"},{"connected":false,"valueType":"boolean","description":"控制回复内容是否输出给用户","label":"流式输出","type":"switch","value":false,"key":"stream"},{"connected":true,"valueType":"string","description":"可以使用 \\n 来实现连续换行。\n\n可以通过外部模块输入实现回复，外部模块输入时会覆盖当前填写的内容。引用变量：{{text}}","label":"回复内容","type":"textarea","value":"{{_state.data.title}} ({{_state.url}})[{{release_date}}]","key":"text"}],"intro":"结合触发条件使用，输出预设内容或输出上游模块接入内容。","name":"确定回复","disabled":false},"id":"b131703a-fc1b-4002-8272-52ba9afb1409","position":{"x":-532.905432417593,"y":2708.273628069409},"type":"custom","events":{}},{"data":{"outputs":[{"valueType":"string","description":"回复内容原样输出。","label":"回复内容","type":"source","value":"","targets":[{"targetHandle":"data","target":"aff271bf-6433-4063-a265-dd8d98a6ba66"}],"key":"text"},{"valueType":"boolean","description":"运行完成后开关打开，下游链接组件开始运行。","label":"模块运行结束","type":"source","targets":[{"targetHandle":"switch","target":"aff271bf-6433-4063-a265-dd8d98a6ba66"}],"key":"finish"}],"moduleType":"confirmreply","inputs":[{"connected":true,"valueType":"boolean","description":"同时满足上游所有条件方可激活当前组件执行逻辑","label":"联动激活","type":"target","keyType":"trigger","value":false,"key":"switch"},{"connected":true,"valueType":"boolean","description":"同时满足上游任一条件即可激活当前组件执行逻辑","label":"任一激活","type":"target","keyType":"triggerAny","value":false,"key":"switchAny"},{"connected":false,"valueType":"boolean","description":"控制回复内容是否输出给用户","label":"流式输出","type":"switch","value":false,"key":"stream"},{"connected":true,"valueType":"string","description":"可以使用 \\n 来实现连续换行。\n\n可以通过外部模块输入实现回复，外部模块输入时会覆盖当前填写的内容。引用变量：{{text}}","label":"回复内容","type":"textarea","value":"{{_state.data.content}}","key":"text"}],"intro":"结合触发条件使用，输出预设内容或输出上游模块接入内容。","name":"确定回复","disabled":false},"id":"ef746911-92eb-4934-9d67-912cfdf37e17","position":{"x":-1521.4807607369644,"y":2190.336545248816},"type":"custom","events":{}},{"data":{"outputs":[{"valueType":"string","description":"回复内容原样输出。","label":"回复内容","type":"source","value":"","targets":[{"targetHandle":"text","target":"d58180c4-71a5-45b3-bd3f-87d6702524eb"}],"key":"text"},{"valueType":"boolean","description":"运行完成后开关打开，下游链接组件开始运行。","label":"模块运行结束","type":"source","targets":[{"targetHandle":"switch","target":"d58180c4-71a5-45b3-bd3f-87d6702524eb"}],"key":"finish"}],"moduleType":"confirmreply","inputs":[{"connected":true,"valueType":"boolean","description":"同时满足上游所有条件方可激活当前组件执行逻辑","label":"联动激活","type":"target","keyType":"trigger","value":false,"key":"switch"},{"connected":true,"valueType":"boolean","description":"同时满足上游任一条件即可激活当前组件执行逻辑","label":"任一激活","type":"target","keyType":"triggerAny","value":false,"key":"switchAny"},{"connected":false,"valueType":"boolean","description":"控制回复内容是否输出给用户","label":"流式输出","type":"switch","value":false,"key":"stream"},{"connected":true,"valueType":"string","description":"可以使用 \\n 来实现连续换行。\n\n可以通过外部模块输入实现回复，外部模块输入时会覆盖当前填写的内容。引用变量：{{text}}","label":"回复内容","type":"textarea","value":"{{_state.data.date}}","key":"text"}],"intro":"结合触发条件使用，输出预设内容或输出上游模块接入内容。","name":"确定回复","disabled":false,"category":"AI"},"id":"ebf64b07-3815-4238-9f96-8bb8d8fd458a","position":{"x":-1536.9640368637968,"y":2984.5295084863765},"type":"custom","events":{}},{"data":{"outputs":[{"valueType":"boolean","description":"所有字段均完成信息提取。","label":"完全提取","type":"source","targets":[{"targetHandle":"switch","target":"b131703a-fc1b-4002-8272-52ba9afb1409"}],"key":"success"},{"valueType":"boolean","description":"所有必填字段均完成信息提取。","label":"必填完全提取","type":"source","targets":[],"key":"fields"},{"valueType":"boolean","description":"存在未提取字段。","label":"提取缺失","type":"source","targets":[],"key":"failed"},{"valueType":"string","description":"以JSON格式输出内容，如{\"city\":\"成都\",\"date\":\"2023-10-13\"}","label":"全部提取结果","type":"source","targets":[{"targetHandle":"release_date","target":"fba36497-fff2-4a2a-acbf-6c1b34649a26"}],"key":"all"},{"valueType":"boolean","description":"运行完成后开关打开，下游链接组件开始运行。","label":"模块运行结束","type":"source","targets":[],"key":"finish"}],"moduleType":"infoExtract","inputs":[{"connected":true,"valueType":"boolean","description":"同时满足上游所有条件方可激活当前组件执行逻辑","label":"联动激活","type":"target","keyType":"trigger","value":false,"key":"switch"},{"connected":true,"valueType":"boolean","description":"同时满足上游任一条件即可激活当前组件执行逻辑","label":"任一激活","type":"target","keyType":"triggerAny","value":false,"key":"switchAny"},{"connected":true,"valueType":"string","description":"引用变量：{{text}}","label":"信息输入","type":"target","value":"","key":"text"},{"connected":true,"valueType":"search","description":"引用变量：{{knSearch}}","label":"知识库搜索结果","type":"target","value":"","key":"knSearch"},{"connected":false,"min":0,"max":100,"valueType":"chatHistory","description":"","step":1,"label":"聊天上下文","type":"inputNumber","value":0,"key":"historyText"},{"valueType":"string","description":"","label":"选择模型","type":"selectChatModel","value":"oneapi-siliconflow:qwen/qwen2-72b-instruct","key":"model","required":true},{"valueType":"string","description":"简单提取无需调整提示词，可补充逻辑判断描述，如上午默认输出6:00-12:00。","label":"提示词 (Prompt)","type":"textarea","value":"## 角色 \n你是一个文本日期信息提取助手，负责从接收到的文本中提取出具体的年、月、日信息。\n\n## 任务\n1.读取接收到的文本信息，信息中可能包括日期和其他无关的信息。\n2.提取出具体的年月日信息，格式为“*年*月*日”，如“2024年7月29日”\n3.如果接收到的文本中没有明确的时间信息，则输出“无日期”。\n\n##限制\n1.只提取出文本中的年月日信息，不要任何生成其他内容。\n","key":"quotePrompt"},{"valueType":"any","description":"由 '描述' 和 'key' 组成一个目标字段，大模型将根据描述完成key填写。如字段key:date,描述：以YYYY/MM/DD格式输出日期。引用变量：{{extractKeys}}","label":"提取字段","type":"table","value":[],"key":"extractKeys","required":true}],"intro":"通过提示词完成字段提取，常用于提取搜索关键词，SQL语句等，结合API、工具和应用模块使用，可以实现复杂功能","name":"字段提取","disabled":false,"category":"AI"},"id":"d58180c4-71a5-45b3-bd3f-87d6702524eb","position":{"x":-1086.961217260477,"y":2719.772520442142},"type":"custom","events":{}},{"data":{"outputs":[],"moduleType":"agentTerminal","inputs":[{"connected":false,"valueType":"string","description":"","label":"Agent运行结束确认","type":"textarea","value":"您对当前返回的结果是否满意？","key":"feedbackContentTitle"},{"connected":false,"valueType":"string","description":"","label":"从头执行","type":"textarea","value":"从头执行","key":"feedbackRestartTitle"},{"connected":false,"valueType":"string","description":"","label":"满意，执行下一步","type":"textarea","value":"满意，执行下一步","key":"feedbackOverTitle"},{"connected":false,"valueType":"string","description":"","label":"不满意，重新执行","type":"textarea","value":"不满意，重新执行","key":"feedbackLoopTitle"},{"connected":true,"valueType":"string","description":"","label":"新闻日期","type":"agentMemoryVar","targets":[],"key":"release_date"}],"intro":"Agent对话结束","name":"Agent对话结束","category":"高阶能力"},"id":"fba36497-fff2-4a2a-acbf-6c1b34649a26","position":{"x":-516.9432006256849,"y":3256.6810590057935},"type":"custom","events":{}}],"edges":[{"sourceX":-1660.8800584282446,"sourceY":2958.2250532446055,"data":{},"targetY":3062.3627604395015,"targetX":-1535.6306628403593,"source":"simpleInputId","type":"custom","targetHandle":"switch","target":"ebf64b07-3815-4238-9f96-8bb8d8fd458a","sourceHandle":"finish","animated":false,"id":"vueflow__edge-simpleInputIdfinish-ebf64b07-3815-4238-9f96-8bb8d8fd458aswitch","events":{}},{"sourceX":-1217.2972888169218,"sourceY":3395.6960123926265,"data":{},"targetY":2877.606016535892,"targetX":-1085.6279042721958,"source":"ebf64b07-3815-4238-9f96-8bb8d8fd458a","type":"custom","targetHandle":"text","target":"d58180c4-71a5-45b3-bd3f-87d6702524eb","sourceHandle":"text","animated":false,"id":"vueflow__edge-ebf64b07-3815-4238-9f96-8bb8d8fd458atext-d58180c4-71a5-45b3-bd3f-87d6702524ebtext","events":{}},{"sourceX":-1217.2972888169218,"sourceY":3435.6960123926265,"data":{},"targetY":2797.606016535892,"targetX":-1085.6279042721958,"source":"ebf64b07-3815-4238-9f96-8bb8d8fd458a","type":"custom","targetHandle":"switch","target":"d58180c4-71a5-45b3-bd3f-87d6702524eb","sourceHandle":"finish","animated":false,"id":"vueflow__edge-ebf64b07-3815-4238-9f96-8bb8d8fd458afinish-d58180c4-71a5-45b3-bd3f-87d6702524ebswitch","events":{}},{"sourceX":-1660.8800584282446,"sourceY":2958.2250532446055,"data":{},"targetY":2268.169797201941,"targetX":-1520.1473867135269,"source":"simpleInputId","type":"custom","targetHandle":"switch","target":"ef746911-92eb-4934-9d67-912cfdf37e17","sourceHandle":"finish","animated":false,"id":"vueflow__edge-simpleInputIdfinish-ef746911-92eb-4934-9d67-912cfdf37e17switch","events":{}},{"sourceX":-1201.8140737252456,"sourceY":2601.503293295691,"data":{},"targetY":2238.9754825995797,"targetX":-706.1801419720312,"source":"ef746911-92eb-4934-9d67-912cfdf37e17","type":"custom","targetHandle":"data","target":"aff271bf-6433-4063-a265-dd8d98a6ba66","sourceHandle":"text","animated":false,"id":"vueflow__edge-ef746911-92eb-4934-9d67-912cfdf37e17text-aff271bf-6433-4063-a265-dd8d98a6ba66data","events":{}},{"sourceX":-1201.8140737252456,"sourceY":2641.503293295691,"data":{},"targetY":2158.9754825995797,"targetX":-706.1801419720312,"source":"ef746911-92eb-4934-9d67-912cfdf37e17","type":"custom","targetHandle":"switch","target":"aff271bf-6433-4063-a265-dd8d98a6ba66","sourceHandle":"finish","animated":false,"id":"vueflow__edge-ef746911-92eb-4934-9d67-912cfdf37e17finish-aff271bf-6433-4063-a265-dd8d98a6ba66switch","events":{}},{"sourceX":-607.2945607663364,"sourceY":3576.272520442142,"data":{},"targetY":3713.8475629120435,"targetX":-515.60986474922,"source":"d58180c4-71a5-45b3-bd3f-87d6702524eb","type":"custom","targetHandle":"release_date","target":"fba36497-fff2-4a2a-acbf-6c1b34649a26","sourceHandle":"all","animated":false,"id":"vueflow__edge-d58180c4-71a5-45b3-bd3f-87d6702524eball-fba36497-fff2-4a2a-acbf-6c1b34649a26release_date","events":{}},{"sourceX":-607.2945607663364,"sourceY":3456.272520442142,"data":{},"targetY":2786.107124163159,"targetX":-531.5720965411282,"source":"d58180c4-71a5-45b3-bd3f-87d6702524eb","type":"custom","targetHandle":"switch","target":"b131703a-fc1b-4002-8272-52ba9afb1409","sourceHandle":"success","animated":false,"id":"vueflow__edge-d58180c4-71a5-45b3-bd3f-87d6702524ebsuccess-b131703a-fc1b-4002-8272-52ba9afb1409switch","events":{}},{"sourceX":-213.23876066466335,"sourceY":3159.440376116284,"data":{},"targetY":2158.9754825995797,"targetX":-706.1801419720312,"source":"b131703a-fc1b-4002-8272-52ba9afb1409","type":"custom","targetHandle":"switch","target":"aff271bf-6433-4063-a265-dd8d98a6ba66","sourceHandle":"finish","animated":false,"id":"vueflow__edge-b131703a-fc1b-4002-8272-52ba9afb1409finish-aff271bf-6433-4063-a265-dd8d98a6ba66switch","events":{}},{"sourceX":-213.23876066466335,"sourceY":3119.440376116284,"data":{},"targetY":2278.9754825995797,"targetX":-706.1801419720312,"source":"b131703a-fc1b-4002-8272-52ba9afb1409","type":"custom","targetHandle":"dsName","target":"aff271bf-6433-4063-a265-dd8d98a6ba66","sourceHandle":"text","animated":false,"id":"vueflow__edge-b131703a-fc1b-4002-8272-52ba9afb1409text-aff271bf-6433-4063-a265-dd8d98a6ba66dsName","events":{}}],"position":[1429.5537158112475,-1145.9768047572386],"zoom":0.5745640612263855,"viewport":{"x":1429.5537158112475,"y":-1145.9768047572386,"zoom":0.5745640612263855}}
+```
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=NzFiOTJiZmM0NWM4Zjc5YmRkMTc0NmU5YjhiMGNkM2RfSGY4S2JTNDdSVnRLQ1o2YWQzRDI0VU1td25jU3o4Zm9fVG9rZW46WnZ3OWJLNG95b0kxNVZ4SGtRQmM1Y3A4bkhnXzE3NDMwNDQyMDI6MTc0MzA0NzgwMl9WNA)
+
+# 5. 結果の表示
+
+最終的に収集されたニュースページの情報は、以下のように保存されます（ここでは一例のみを表示します）：
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MzRjYjg4ZjJkMTVlMTMzYmY3MWEzZmJmM2MxNTFiMGRfTFBFV3ZRcGd1VUYzbjlDY29BQ2tnYU5KSWZuWEFsUmJfVG9rZW46REkxN2JjNEVQbzFBUnV4cTlCa2NSREYwbnBkXzE3NDMwNDQyMDI6MTc0MzA0NzgwMl9WNA)
+

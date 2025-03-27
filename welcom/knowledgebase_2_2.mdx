@@ -1,0 +1,28 @@
+---
+title: "検索テスト"
+---
+
+## 検索テスト
+
+・ファイル解析完了後、「検索テスト」ページでデータセットの検索精度を確認し、最適な設定が調整可能
+
+・テスト用のテキストを入力し、「テスト」ボタンをクリックすると、結果を確認できる
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MDlkNDkwZWE3NjY4NmNjNTg1NGFlOWRhYWVlM2MwNGNfbTd1cjJ0RW1sNkhGTWs0cEl6QVdWQzI2S09xRmZZbmJfVG9rZW46SXVvc2IxT0xpb1B5cmR4WnlnN2NlaUhJbk9mXzE3NDMwNDM2Mjc6MTc0MzA0NzIyN19WNA)
+
+
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=ZmMxMGNhNjMzYmE3NzlmM2E3MTlmNjFmMWIwMDg0NjhfZkF6akVZMXZhZGozbzBXV2lrbjN3TWpvYW9pYnpxdjRfVG9rZW46RUJSQWJYM3BKb0R5VFZ4YUl6WGNianVIbjR0XzE3NDMwNDM2Mjc6MTc0MzA0NzIyN19WNA)
+
+
+
+各パラメータには説明が付いており、設定の理解と活用をサポートします
+
+| パラメータ名         | 説　明                                                                                                                                              |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **類似度しきい値**    | 検索結果に含めるかどうかの基準となる類似度の最小値・類似度スコアは、キーワード検索とベクトル検索を組み合わせて計算される・スコアがしきい値を下回る場合、その情報は検索対象から除外される                                                     |
+| **ベクトル検索の影響度** | キーワード検索とベクトル検索のバランスを設定・両者の合計は `1` になる（例：ベクトル検索 `0.9`、キーワード検索 `0.1`）・デフォルトは `1`（ベクトル検索のみを使用）・明確なキーワード（名前・住所・番号など）が含まれる場合は、ベクトル検索の比重を下げると検索精度が向上する |
+| **検索結果数**      | **類似度の高い順に取得する最大件数**・設定したしきい値を満たす情報のうち、スコアが高いものを優先して表示する                                                                                         |
+| **検索結果の最適化**   | **検索結果をより正確に並び替える機能**・ユーザーの質問との関連性を再評価し、最も重要な情報を優先表示する（ただし、処理負荷が高く、検索速度が低下する可能性がある）                                                              |
+| **最適化する検索結果数** | 最適化後に、関連性の高い順に取得する最大件数                                                                                                                           |
+

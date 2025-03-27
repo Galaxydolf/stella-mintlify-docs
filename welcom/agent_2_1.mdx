@@ -1,0 +1,102 @@
+---
+title: "プランニング概要"
+---
+
+「プランニング」とは、その名の通りエージェントの機能設計を行う工程です。
+
+&#x20;エージェントが実行される際、あらかじめ構成されたフローに従って各モジュールが順次実行され、所定の目的を達成します。
+
+プラットフォームの「プランニング」機能は、**モジュールをドラッグ＆ドロップし、線でつなぐ**という直感的なインターフェースを採用しており、ユーザーは視覚的にプロセスを構築できます。これにより、ワークフロー設計の理解と運用が容易になり、同時に柔軟でパワフルなカスタマイズも可能です。
+
+### ■ 「積み木感覚」で構築するAIエージェント
+
+この設計プロセスは、まるで「積み木」を組み立てるような感覚に近いです。
+&#x20;各モジュール（積み木）にはそれぞれ固有の役割・機能があり、それらを論理的に組み合わせることで、**独自のAIエージェント**を構築できます。
+
+プラットフォームに用意された各モジュールの機能を理解すれば、実装できるAIの可能性が大きく広がります。
+
+## **機能概要**
+
+### **1、モジュールエリア（左側）**
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=N2IzMzRhZjJjNjE0M2JlNGNjYzE0ZmM1ZmNhOTRjZTNfckRXcnBRM1dPQXpFbEpldmpobXhpVnRuZ1NNTGM5Q1VfVG9rZW46R2ZIRmJFanQ1b2pjZDl4YmhWRGNIc0FpbkViXzE3NDI5OTY2NzM6MTc0MzAwMDI3M19WNA)
+
+* 画面左側は「モジュールエリア」です。現在プラットフォームでは、以下の3つのカテゴリのモジュールが用意されています：
+
+  * **システムモジュール**：AIの能力と接続し、入力テキストを処理する機能（例：情報加工、ナレッジベース検索など）。
+
+  * **エージェント**：現在構築中のエージェント内で、別のエージェント（公開済）を呼び出して、より複雑な処理ロジックを構成できます。
+
+  * **ツール**：よく使われる外部サービスや社内機能をツールとしてパッケージ化。企業独自のツールを開発して追加することも可能です。
+
+### **2、キャンバスエリア（中央）**
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YTA2ZTQ4ZTBkYzRkYjQxZGM5YTRhZDRjMGM4N2I5OTZfRWZZb3ZLTDdzQ0tvRVlSQ041b1gzWkM2UXlNMnlKWGdfVG9rZW46S3AzOGJ3MjZnb2g5Q3R4blJrdmNWdTFpbnBlXzE3NDI5OTY2NzM6MTc0MzAwMDI3M19WNA)
+
+中央の「キャンバスエリア」はワークフロー設計の操作画面です。左側モジュールエリアのパーツをドラッグ＆ドロップで配置し、線で接続して処理の流れを構成します。
+
+* 各モジュールの **左側のノードは「入力」**、**右側のノードは「出力」** です。
+
+* 入力と出力のみが接続可能で、**入力-入力**、**出力-出力** 間の接続はできません。
+
+* 誤接続した場合は、接続線の中央に表示される「×」をクリックして削除できます。
+
+### **3、機能エリア（画面上部）**
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YmRmN2MxYzg5OWQ1YzlkMDZmZTIzNTI4NWNmN2QxYzZfUDVSVE03ZHRFbTViRjc3cDRVaENlT1dYOUZUMnQ1TVlfVG9rZW46T1RDVWJGeUd0b2k2Sjd4dHVrTGNRZWxMbm1jXzE3NDI5OTY2NzM6MTc0MzAwMDI3M19WNA)
+
+画面上部は「機能エリア」で、次の2つのカテゴリに分かれます：
+
+* **キャンバス機能**
+
+* **エージェント機能（右上ボタン）**
+
+#### **キャンバス機能**
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MTA5MmU1Y2E0YTBkZWE3MDk1ZGRmZjY2N2NiNjNhMzFfUEx1MHJkaFpTbFNYZm4wemVxQlV1VHZtNklVQjltM05fVG9rZW46V0F5QmJFb1VTb1ZTVTN4ckE2NmNxbFpFblVjXzE3NDI5OTY2NzM6MTc0MzAwMDI3M19WNA)
+
+* **インポート／エクスポート**：現在のエージェント構成をファイルとして保存、または読み込み可能。
+
+* **テスト実行（プレビュー）**：簡易チャットウィンドウを起動し、対話形式で動作確認ができます。
+
+#### **エージェント機能（右上ボタン）**
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YzM3NjI3YzQ0N2UxNmVkNmE0ZGQzZGE0ZTA1NmVhNmRfS3BHcVFwNndWczgzaDVCNXVqQ21tRWtFM1R3RzJtRlRfVG9rZW46TTFSNmJKcnk3b1ZhM0Z4WnQxMmNHSlY4bmhlXzE3NDI5OTY2NzM6MTc0MzAwMDI3M19WNA)
+
+* **公開**：エージェントをHTTPリンクまたはAPIとして外部提供可能にする設定。
+
+* **削除**：エージェント全体の設定を削除（※取り消し不可。慎重に）。
+
+* **保存**：現在のエージェント構成を保存。
+
+* **マーケットに出品**：エージェントを「エージェントマーケット」に公開。
+
+## モジュール構造
+
+各モジュールは以下の3つのセクションで構成されます：
+
+* **左上：入力ノード**（他モジュールからのデータを受け取る）
+
+* **中央：設定エリア**（パラメータ、プロンプト、プロパティなどを設定）
+
+* **右下：出力ノード**（処理結果を他モジュールに渡す）
+
+## ノードの種類と色分け
+
+ノードはタイプ別に色分けされています。色に応じて扱うデータ型が異なります：
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDgxZjQ0ZTgxMTNlYmZjMzc2YjMzNWQwMmE4NjUwOWZfY3dtVlcxT3ZWQzZDMnRWZGJ4NTcyc0VEVkZpVUlYQ3RfVG9rZW46VXBwdmJ5dEJWbzdadkF4Y1VzbGM0NkJTbm9kXzE3NDI5OTY2NzM6MTc0MzAwMDI3M19WNA)
+
+
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=NGE5MjE0YTI0MDE4YWEwZTA0ZTkyYTZlMmRiN2I2MTRfVlJXeUdTT21JODI4dUpEU2Iyd0V2b2pZeWVSanlvbmNfVG9rZW46TUhGRWJ2SFg4b0dVZzd4eEVmemNZVU9nbmRoXzE3NDI5OTY2NzM6MTc0MzAwMDI3M19WNA)
+
+
+
+**接続ルール：**
+
+1. **同じデータ型同士のみ接続可。異なる型のノード同士は接続不可。**
+
+2. **「連動トリガー（AND）」「任意トリガー（OR）」は、複数のBoolean出力をまとめて受け取ることが可能。**
+
+3. **String型ノードは、接続できる上流ノードは1つのみ。**

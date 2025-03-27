@@ -1,0 +1,119 @@
+---
+title: "上級編：フィールド抽出 × HTTPモジュール活用"
+---
+
+「フィールド抽出」モジュールを使えば、ユーザーの入力内容から必要な情報（日時、場所、用途など）を自動で解析・抽出できます。さらに「HTTPコール（API連携）」モジュールを組み合わせることで、**外部システムとの連携**も実現可能となり、AIエージェントの活用範囲が大きく広がります。
+
+### 今回のユースケース：会議室予約エージェント
+
+今回は、「会議室予約サポート」エージェントを例に、**自然言語での会議室予約操作**を実現する構成を紹介します。
+
+ユーザーが「明日の午後3時から1時間、東京本社の会議室を予約して」と入力すると、エージェントは以下の処理を順に実行していきます：
+
+###
+
+### 基本構成
+
+このエージェントには、次の2つの主要機能が求められます：
+
+・**会議室の空き状況を確認する**
+
+・**指定された条件で会議室を予約する**
+
+これらの機能を実現するために、本エージェントは**既存の会議室予約システムとAPI連携**を行います。
+&#x20;そのため、以下のような情報を事前に設定・構成しておく必要があります。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=NDhlYWU4NzZiNzM0Njk5YTcxMjA3OWQyNDhjYjYwNDFfTjREMXBGWU9SMExlWHZROEQ2UDBCdmlXc1BtRlVGSXpfVG9rZW46UVU4OWJUN3d2b0gyUEF4MEpvRWMyN2k4bm1mXzE3NDMwNDQxNzU6MTc0MzA0Nzc3NV9WNA)
+
+###
+
+### フロービルダーでの構成
+
+本エージェントの全体的な設計思想は、「情報分類」モジュールを通じてユーザーの意図（会議室の【空き状況を確認】か、【予約】か、その他）を判別し、その分類結果に応じて処理フローを分岐させ、適切な処理を実行するというものです。
+
+####
+
+#### 会議室の空き状況を確認するフロー
+
+以下は「会議室の予約状況を確認する」ための処理フローです。
+
+&#x20;ユーザーの入力内容が「空き状況の確認」と判断された場合、「HTTP呼び出し」モジュールを介して会議室予約システムと通信し、現在の空き状況を取得します。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YTFlYmM5MWRlMDViNjJjM2JkMjY3MTZiMWExMDg2MjlfU3hTTEV1TXRBb2pjcWhrS0FuM0hXUEI5WkY4ZVpGTUpfVG9rZW46VzRDZWJWbFJjb3JUMVN4bndvUWNmQVhZblFjXzE3NDMwNDQxNzU6MTc0MzA0Nzc3NV9WNA)
+
+フロー構成：
+
+* **接続①：ユーザー入力の取得**
+
+　「ユーザー入力」モジュールを通じて、ユーザー入力情報を取得し、その内容を出力します。
+
+360. **ユーザー入力取得（連線1）**
+     &#x20;　「ユーザー質問」モジュールでユーザーの発言を受け取り、「情報分類」モジュールに渡します。
+
+361. **情報分類（連線2）**
+     &#x20;　「情報分類」モジュールでは、プロンプト＋ユーザーの発言＋直近のチャット履歴を元に、ユーザーの意図を判別します。
+
+362. **HTTP呼び出し（連線3, 連線4）**
+     &#x20;　意図が「空き状況確認」の場合、HTTP呼び出しモジュールを介して、会議室システムのAPIを叩きます。 　- APIリクエスト：会議室の空き状況を取得 　- レスポンス結果：次のモジュールに渡されます
+
+363. **結果の返答（連線4）**
+     &#x20;　「スマート会話」モジュールがAPIレスポンスを受け取り、プロンプトを元に自然な文章でユーザーへ返答します。
+
+364.
+
+* 情報分類モジュールは、ユーザー入力を受け取り、以下のステップを実行する：
+
+  * モジュールに設定されたプロンプト、「ユーザー入力」、およびチャットコンテキストを天工大模型（LLM）に渡し、分類処理を行う。
+
+  * ユーザー情報のタイプを判断し、分類結果を返して、次のモジュールの機能をトリガーする。
+
+* **接続②：**&#x30E6;ーザーの意図が「空き状況確認」である場合、HTTP呼び出しモジュールを介して、会議室システムのAPIを照会します。
+
+  * 「HTTP呼び出し」モジュールには「会議室照会」のリクエストURLが設定されており、一方で照会を受け取り（接続③）、もう一方で照会結果を出力（接続④）して、現在の会議室の状態情報を次のモジュールに渡す。
+
+* **接続④**：「AI応答」モジュールは、会議室の予約状況情報を受け取った後、以下の3つの情報入力を受けて処理を行う：
+
+  * プロンプト、ユーザーからの質問、およびHTTP呼び出しによる照会結果を天工大模型（LLM)に渡す。
+
+  * 大模型が情報を処理し、プロンプトに基づいてユーザーに返答を行う。
+
+
+
+####
+
+#### 会議室予約機能のフロー設計
+
+「会議室予約」モジュールにおいては、「情報分類」モジュールを通じてユーザーの意図を判別します。もし「会議室を予約したい」というリクエストであれば、次のフローがトリガーされます。具体的な接続線と機能説明は以下の通りです：
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDA0YTc2MTk2MmNiZmY5M2NmOTJiNDI1OTNhNDJmYjVfWFNXNXJHMkxlZkNpVFhSdVgzdW5qdWVFWGhmZ21ObjBfVG9rZW46U0dZY2J3TVcyb2Zsblh4YzMyNWMwa2V1bnljXzE3NDMwNDQxNzU6MTc0MzA0Nzc3NV9WNA)
+
+* **接続⑤**：ユーザーの意図が「会議室を予約する」であった場合、「フィールド抽出」モジュールがトリガーされます。
+
+  * 「フィールド抽出」モジュールの主な機能は、ユーザーの入力内容を構造化し、JSON 形式で出力することです。
+
+  * 例：ユーザーが「天空の門を13:00〜18:00で予約、予約者はアシスタント」と入力した場合、抽出結果は、
+    `{"会議室名称":"天空の門","開始時間":"13:00","終了時間":"18:00","予約者名":"アシスタント"}` となります。
+
+* **接続⑥：**&#x4E88;約情報を会議室予約システムに適切に送信するために、「情報加工」モジュールを追加します。このモジュールでは上記の JSON を、APIが要求する形式へ変換します。**接続⑦&#x20;**&#x306B;より変換後のデータを「HTTP呼び出し」モジュールに渡し、予約システムに送信します（このステップは必要に応じて省略可能です）
+
+* **接続⑧**：予約リクエストが成功した場合、「AI応答」モジュールがトリガーされ、ユーザーに予約完了の通知を行います。（**接続⑨**により、予約内容もあわせて通知）
+
+* **接続⑩**：会議室予約には必要なユーザー情報の提供が不可欠です。不足がある場合に備え、「抽出漏れ」プロンプトを設定し、不足情報の入力を促します、
+
+###
+
+### 対話テスト
+
+* 「会議室を確認」と入力すると、エージェントは現在の会議室予約状況を返してくれます。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjA0YmI5MTkzODVmODhmOWMzMWVkNjE5MmEyMDI4Yzdfa25EYmZlQzM4aXBzb3FZdE95bEgzcXpVbmF6azRqNXlfVG9rZW46WWJzUWJzRWJtb0R6NVR4OHQ2NGM0THl3bmZmXzE3NDMwNDQxNzU6MTc0MzA0Nzc3NV9WNA)
+
+* 「会議室を予約」と入力すると、エージェントはユーザーに対して必要な予約情報の入力を促します。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=NTU4N2JhZTI1YTU2NWM0MGRlMDQ0NTI5N2RiOTA4NGRfcG50ZlA2MnpaaDByazV6WjlITDN5SjZ0UDBQcndlS0pfVG9rZW46TzJnaGJqc1hUb2VtQ1B4ZGwzWWMzUFNEbmRlXzE3NDMwNDQxNzU6MTc0MzA0Nzc3NV9WNA)
+
+* 「天空の門を午後4時に予約、予約者はアシスタント」と入力すると、エージェントはその情報を会議室予約システムに送信し、リクエストが成功すれば「予約成功」といった内容でユーザーに通知します。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YTMwNjAxMWZkNTU2NjM1ODQxMjIyODdlMDVjNDIzYzJfSEZMYWxLMXBDenVWRnpoYm1aUVcxZkFVazBpaWhHSWJfVG9rZW46TFE3SGJoTU5Ub0wzR3l4S2ZQWGNhZVdSbjZjXzE3NDMwNDQxNzU6MTc0MzA0Nzc3NV9WNA)
+
+以上が、シンプルな会議室予約用エージェントの構築概要となります。「フィールド抽出」モジュールと「HTTP呼び出し」モジュールを柔軟に活用することで、個人や業務のニーズに合った多様なエージェントを構築できます。

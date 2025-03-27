@@ -14,23 +14,92 @@
         "tab": "Guides",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "Welcome！",
             "pages": [
-              "introduction",
-              "quickstart",
-              "development"
+              "welcom/welcome"
             ]
           },
           {
-            "group": "Essentials",
+            "group": "クイックスタート",
             "pages": [
-              "essentials/markdown",
-              "welcom/welcome",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "welcom/agent01",
+              "welcom/agent02"
+            ]
+          },
+          {
+            "group": "エージェント作成ガイド",
+            "pages": [
+              "welcom/agent_1",
+              "welcom/agent_2_1",
+              "welcom/agent_2_3",
+              "welcom/agent_2_4",
+              "welcom/agent_2_5",
+              "welcom/agent_2_6"
+            ]
+          },
+          {
+            "group": "基本モジュール",
+            "pages": [
+              "welcom/agent_2_2_1",
+              "welcom/agent_2_2_2",
+              "welcom/agent_2_2_3",
+              "welcom/agent_2_2_4",
+              "welcom/agent_2_2_5",
+              "welcom/agent_2_2_6",
+              "welcom/agent_2_2_7",
+              "welcom/agent_2_2_8",
+              "welcom/agent_2_2_9",
+              "welcom/agent_2_2_10",
+              "welcom/agent_2_2_11",
+              "welcom/agent_2_2_12",
+              "welcom/agent_2_2_13",
+              "welcom/agent_2_2_14",
+              "welcom/agent_2_2_15",
+              "welcom/agent_2_2_16",
+              "welcom/agent_2_2_17",
+              "welcom/agent_2_2_18",
+              "welcom/agent_2_2_19",
+              "welcom/agent_2_2_20",
+              "welcom/agent_2_2_21"
+            ]
+          },
+          {
+            "group": "ナレッジベース",
+            "pages": [
+              "welcom/knowledgebase_1",
+              "welcom/knowledgebase_2_1",
+              "welcom/knowledgebase_2_2"
+            ]
+          },
+          {
+            "group": "権限管理",
+            "pages": [
+              "welcom/system_1"
+            ]
+          },
+          {
+            "group": "データベース",
+            "pages": [
+              "welcom/database_1",
+              "welcom/database_2"
+            ]
+          },
+          {
+            "group": "ツール",
+            "pages": [
+              "welcom/web_1",
+              "welcom/web_2",
+              "welcom/tool_2"
+            ]
+          },
+          {
+            "group": "活用ガイド",
+            "pages": [
+              "welcom/example_1",
+              "welcom/example_2",
+              "welcom/example_3",
+              "welcom/example_4",
+              "welcom/example_5"
             ]
           }
         ]
