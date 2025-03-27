@@ -1,0 +1,28 @@
+---
+title: "Agent対話終了"
+---
+
+## Agent対話終了
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=NDE2MmM1MDYzM2ViNzE2NDRkZjU4YjkyNzIyMmY2Y2VfN2N5cjFSYkVlYkNYREpXcDBOekpnOXdmc2Z1UG5nVW1fVG9rZW46S2NLd2JsakpWbzZBZzZ4NzhrWGNUbmt5bjFmXzE3NDMwNDI3MzI6MTc0MzA0NjMzMl9WNA)
+
+**モジュール概要**
+
+・本モジュールは、複数のエージェント（Agents）を連携させるシナリオで使用する
+
+・エージェントのフロー設計（プランニング）内でこのモジュールを導入すると、「プランニング」画面の左側にある「Agents」セクションに対象のエージェントが表示され、キャンバス上にドラッグ＆ドロップして連携できる
+
+・メモリ変数は、現在のシナリオで保存される一時的なデータであり、他エージェントのフロー内で本エージェントが使用される場合、出力パラメータとして活用し、エージェント間のデータ連携を可能にする
+
+**モジュールパラメータ**
+
+![他フローのエージェントとして実行される場合、実行時に確認ポップアップが表示される](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YjhhZWE1NzE4YjFkMTQwMWRkYjE0NTY5NzI0ZWM5MGZfdko3WnZkYVpHc0lxT0JkYjNrZ3VYbnRCNDNNWkkyWVRfVG9rZW46RlFiM2J6OGY0b0FXYWp4QmtSWWNyd2RCbk9oXzE3NDMwNDI3MzI6MTc0MzA0NjMzMl9WNA)
+
+| パラメータ名             | データ形式 | 機能説明                                                                                                               |
+| ------------------ | ----- | ------------------------------------------------------------------------------------------------------------------ |
+| **エージェント実行終了確認**   | -     | 如上图所示，设定弹窗的提问话术文案                                                                                                  |
+| **実行リセット**         | -     | エージェントをフロー内の1つのノードとして扱い、「実行リセット」をクリックすると、実行履歴をリセットし、「ユーザー入力」から再実行する                                                |
+| **次の処理へ**          | -     | 処理が完了すると、以降のユーザー入力は別のモジュールで処理され、フローに従って進行する                                                                        |
+| **再実行**            | -     | 現在のエージェントのみを再実行し、フロー全体の実行はリセットせずに続行する                                                                              |
+| **エージェントメモリ変数の追加** | -     | ・メモリ変数を設定可能（**ブール型、ナレッジベース検索結果、文字列型** をサポート）・メモリ変数を追加後、保存したい情報に接続することで、変数を格納可能・以降のモジュールでは`{{設定したキー}}`の形式で常時変数の参照可能 |
+
