@@ -1,0 +1,86 @@
+---
+title: "はじめてのナレッジベース作成"
+---
+
+ナレッジベースとは、**情報を集約したデータの保存庫**です。
+さまざまな形式のファイル（**文書、表計算シート、スライドなど**）をアップロードし、データセットとして解析できます。
+AIエージェントは、**1つまたは複数のナレッジベースをもとに回答を生成**します。
+
+## ナレッジベースの作成方法
+
+#### 1. **ナレッジベースの作成**
+
+・**左側の「ナレッジベース」タブをクリック**
+
+・ **「ナレッジベースを作成」ボタンをクリック**
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=NzRhZTEzM2EyYzU1YmVlYzg0MzNhMzNkMjc5YTA2ZTlfSEs2WklYRjQ3a3NDM2NIcjQxRXhqdnJqclR5d1JaTWZfVG9rZW46SGJBN2IzUkRBb1B4UWt4blVuc2M2UmdXbjZlXzE3NDMwNDM1OTg6MTc0MzA0NzE5OF9WNA)
+
+#### 2. **基本情報の入力**
+
+* **ナレッジベース名を入力（必須）**
+
+* **説明を追加（任意）**
+
+* **「確定」ボタンをクリック**
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YTdiMTQzMGEyNThjNzk3YzFmMTk1MWRiNDBjMzdhYThfTEVob1FJdk1BenhPaVZUcnpEYVpHcVFYNlFiRldhbllfVG9rZW46UUFEVGJvWG5hb1lmeHN4cERYQ2NiR1JrblllXzE3NDMwNDM1OTg6MTc0MzA0NzE5OF9WNA)
+
+## 3. 高度な設定
+
+* **解析方法の選択**（法律、論文、書籍、マニュアル、FAQ など）
+
+* **埋め込みモデルの指定**
+
+  * 埋め込みモデルは、テキストを数値（ベクトル）に変換するアルゴリズム
+
+  * テキストの意味を数値データとして表現し、類似するテキスト同士を近づける役割を持つ
+
+* **ブロックのトークン数を設定**
+
+  * 文書を処理する際、テキストを「ブロック（またはセグメント）」に分割し、各ブロックに含まれるトークン数を指定する
+
+  * トークンとは、モデルが処理する最小単位であり、単語またはその一部を指す
+
+  * ブロックのトークン数を大きくすることで、より多くの内容を1つのブロックに収められるようになるが、計算コストが増加する可能性がある
+
+  * ブロックのトークン数を小さくした場合、より細かい分析が可能だが、処理するブロック数が増加する
+
+  * 適切な設定により、精度と効率のバランスを取ることが重要です
+
+* **「確定」をクリックして作成を完了**
+
+&#x20;⚠ **注意：一度埋め込みモデルを選択すると変更できません。これは、すべてのファイルで一貫したデータ変換方法を維持するため**
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MDRkMzliYmI5YTEwN2YwMGUwNGMxN2ExYjdiMjFjOWFfZTlYTldTb01NcWg2ZVNDc3V2eUV5R2JqZnlGVmxteUlfVG9rZW46RVJjN2JOaHRpb0t1NUV4ZTZKemN5YUVFbkRmXzE3NDMwNDM1OTg6MTc0MzA0NzE5OF9WNA)
+
+*&#x3000;**さまざまな文書形式に対応するため、法律文書、論文、書籍、マニュアル、FAQ などに適した複数の解析方法を用意しています。**
+　**注意：一度選択した埋め込みモデルは変更できません。特定のナレッジベース内では、すべてのファイルを同じ埋め込みモデルで処理する必要があります。**
+**これは、統一されたデータ変換を行い、類似度比較や関連情報の検索を正確に行うためです。***
+
+## ファイルアップロード
+
+1. **ナレッジベースの「データセット」ページに移動**
+
+2. **「アップロード」をクリックし、ファイルを選択**
+
+3. **アップロード完了後、「ナレッジベースに更新」をクリック**
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YWFhOThiNTYzYTkyOGRlZWRkMDI5MjUxYmNlNTJjNTNfSWU1QVFGWm1VemdHQVJ3WXVwcHhhUXBjUk95bGRlUEZfVG9rZW46TkpBeWJiZ1Frb3RsUm94RGNwOWNRc0gzbmZmXzE3NDMwNDM1OTg6MTc0MzA0NzE5OF9WNA)
+
+
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=NDcwZGFmMTRjNWI0NTQ4ZDRlNDQxMTQ0MWVjOTMzZDdfWVdmM0QxWmZGSXVGekdYb3BiOTViM20waUttS0J3cHZfVG9rZW46VEM0d2JsbjlIb3hROFN4dU05RmNIWVh3bjVkXzE3NDMwNDM1OTg6MTc0MzA0NzE5OF9WNA)
+
+
+
+## ファイルの解析
+
+1. **ファイルの「解析」ボタンをクリック**
+
+2. **システムが自動でファイルを分割し、データを埋め込む**
+
+3. **解析が成功するとステータスが「成功」に更新され、ファイル内容が検索可能となる**
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=OTU5NmQyYWMxNWViMGI0NGY0N2MzMTAzM2Q5NDcwZGRfZTlnZmkxZVVrSjBTS2cwajVKQXZlWlBlM0doNktYNkdfVG9rZW46WkM2b2J0dnh1b2FjY2Z4V2lvS2MwUzBTbnNkXzE3NDMwNDM1OTg6MTc0MzA0NzE5OF9WNA)
+
