@@ -1,86 +1,50 @@
 ---
-title: "はじめてのナレッジベース作成"
+title: "データベースの接続"
 ---
 
-ナレッジベースとは、**情報を集約したデータの保存庫**です。
-さまざまな形式のファイル（**文書、表計算シート、スライドなど**）をアップロードし、データセットとして解析できます。
-AIエージェントは、**1つまたは複数のナレッジベースをもとに回答を生成**します。
+## データベースの接続
 
-## ナレッジベースの作成方法
+・左側メニューの「データベース」を開く
 
-#### 1. **ナレッジベースの作成**
+・ 「データベースを接続」をクリックし、接続設定を開始
 
-・**左側の「ナレッジベース」タブをクリック**
+<img
+  src="/images/63.png"
+/>
 
-・ **「ナレッジベースを作成」ボタンをクリック**
 
-![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YzlmMDcwZTE5ZWE2ZGVjN2ZiOTNlMjlhMjM3YTEyODVfOERvcFUyZ2pOZkdtRDdkRjhMeHVXM0RXMHpmeUZQdTdfVG9rZW46SGJBN2IzUkRBb1B4UWt4blVuc2M2UmdXbjZlXzE3NDMwNDM4NDY6MTc0MzA0NzQ0Nl9WNA)
+現在、プラットフォームは MySQL、OceanBase、PostgreSQL、SQL Server の4種類のデータベース接続に対応しており、データベースの接続情報を入力するだけで、簡単にデータベース接続を完了できます。
 
-#### 2. **基本情報の入力**
+<img
+  src="/images/64.png"
+/>
 
-* **ナレッジベース名を入力（必須）**
 
-* **説明を追加（任意）**
+## データベース管理
 
-* **「確定」ボタンをクリック**
+データベースを接続すると、データベース内のテーブルを確認できるようになります。
 
-![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=Zjg3NDgwZTMxZGNjOWIxYjQ1NGRhZWU5NzA3ZGU4MWFfeXRTWnF2ME5RV3lrTGgwaVBLWjRVb3FyVzVvamQyZHNfVG9rZW46UUFEVGJvWG5hb1lmeHN4cERYQ2NiR1JrblllXzE3NDMwNDM4NDY6MTc0MzA0NzQ0Nl9WNA)
-
-## 3. 高度な設定
-
-* **解析方法の選択**（法律、論文、書籍、マニュアル、FAQ など）
-
-* **埋め込みモデルの指定**
-
-  * 埋め込みモデルは、テキストを数値（ベクトル）に変換するアルゴリズム
-
-  * テキストの意味を数値データとして表現し、類似するテキスト同士を近づける役割を持つ
-
-* **ブロックのトークン数を設定**
-
-  * 文書を処理する際、テキストを「ブロック（またはセグメント）」に分割し、各ブロックに含まれるトークン数を指定する
-
-  * トークンとは、モデルが処理する最小単位であり、単語またはその一部を指す
-
-  * ブロックのトークン数を大きくすることで、より多くの内容を1つのブロックに収められるようになるが、計算コストが増加する可能性がある
-
-  * ブロックのトークン数を小さくした場合、より細かい分析が可能だが、処理するブロック数が増加する
-
-  * 適切な設定により、精度と効率のバランスを取ることが重要です
-
-* **「確定」をクリックして作成を完了**
-
-&#x20;⚠ **注意：一度埋め込みモデルを選択すると変更できません。これは、すべてのファイルで一貫したデータ変換方法を維持するため**
-
-![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjBjNTUxZWE3M2U5MmRmZTRkMWI2ZWZlNzQyM2FhY2ZfTmszNDJ0QkRsRFlEQzRYbEJSQkFUbTZQaXEyQTJXb2lfVG9rZW46RVJjN2JOaHRpb0t1NUV4ZTZKemN5YUVFbkRmXzE3NDMwNDM4NDY6MTc0MzA0NzQ0Nl9WNA)
-
-*&#x3000;**さまざまな文書形式に対応するため、法律文書、論文、書籍、マニュアル、FAQ などに適した複数の解析方法を用意しています。**
-　**注意：一度選択した埋め込みモデルは変更できません。特定のナレッジベース内では、すべてのファイルを同じ埋め込みモデルで処理する必要があります。**
-**これは、統一されたデータ変換を行い、類似度比較や関連情報の検索を正確に行うためです。***
-
-## ファイルアップロード
-
-1. **ナレッジベースの「データセット」ページに移動**
-
-2. **「アップロード」をクリックし、ファイルを選択**
-
-3. **アップロード完了後、「ナレッジベースに更新」をクリック**
-
-![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=NWUyNzg4NmRmZmU5Nzk4MDRkOTc4NjBjYmIyOTBhNDhfVXo0U3N3Y2JxS043cjdLUndxTm04bzRLc21XcjMxN3ZfVG9rZW46TkpBeWJiZ1Frb3RsUm94RGNwOWNRc0gzbmZmXzE3NDMwNDM4NDY6MTc0MzA0NzQ0Nl9WNA)
+また、エージェントのワークフロー設計時に、データベースを活用した処理を組み込むことも可能です。
 
 
 
-![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=OWM0ZGM0NzI5ZWY5NjAwMWUzNjhlMjA0MmMxYjc4NTZfUEd4TVo1VHBJeUg4Z1hWeEdaelJDZDFNNEZremcwaFFfVG9rZW46VEM0d2JsbjlIb3hROFN4dU05RmNIWVh3bjVkXzE3NDMwNDM4NDY6MTc0MzA0NzQ0Nl9WNA)
+注意: プラットフォームは、データベース内の関連テーブル情報およびテーブル構造のみを同期し、すべてのデータを同期することはありません。
 
 
 
-## ファイルの解析
+データベースは手動更新に対応しており、更新を実行すると最新のテーブル情報とテーブル構造が反映されます。
 
-1. **ファイルの「解析」ボタンをクリック**
+<img
+  src="/images/65.png"
+/>
 
-2. **システムが自動でファイルを分割し、データを埋め込む**
 
-3. **解析が成功するとステータスが「成功」に更新され、ファイル内容が検索可能となる**
+また、データテーブルを開くと、テーブル内のフィールド情報を管理できます。
 
-![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=Yzk3ZWNiYWU5NzVlNTMxYWM5OWU0MmRkN2NlMDZhNThfMHBRaXAxd1ZkcjVVbmpOS3llc1p1ejBvek01a2NhS0NfVG9rZW46WkM2b2J0dnh1b2FjY2Z4V2lvS2MwUzBTbnNkXzE3NDMwNDM4NDY6MTc0MzA0NzQ0Nl9WNA)
+主な操作には、有効化/無効化の切り替えや手動での注釈追加などがあります。
 
+注釈を追加することで、モデルがテーブルの内容をより正確に理解し、SQLの生成精度を向上させることができます。
+
+<img
+  src="/images/66.png"
+/>
