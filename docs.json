@@ -40,6 +40,8 @@
           {
             "group": "基本モジュール",
             "pages": [
+              "welcom/agent_2_2_20",
+              "welcom/agent_2_2_21",
               "welcom/agent_2_2_1",
               "welcom/agent_2_2_2",
               "welcom/agent_2_2_3",
@@ -58,9 +60,7 @@
               "welcom/agent_2_2_16",
               "welcom/agent_2_2_17",
               "welcom/agent_2_2_18",
-              "welcom/agent_2_2_19",
-              "welcom/agent_2_2_20",
-              "welcom/agent_2_2_21"
+              "welcom/agent_2_2_19"
             ]
           },
           {
