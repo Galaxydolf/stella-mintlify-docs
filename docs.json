@@ -33,7 +33,7 @@
               "welcom/agent_2_1",
               "welcom/agent_2_3",
               "welcom/agent_2_4",
-              "welcom/agent_2_5",
+              "welcom/agent25",
               "welcom/agent_2_6"
             ]
           },
@@ -67,7 +67,7 @@
             "group": "ナレッジベース",
             "pages": [
               "welcom/knowledgebase_1",
-              "welcom/knowledgebase_2_1",
+              "welcom/knowledgebase21",
               "welcom/knowledgebase_2_2"
             ]
           },
