@@ -83,24 +83,6 @@
               "welcom/database_1",
               "welcom/database_2"
             ]
-          },
-          {
-            "group": "ツール",
-            "pages": [
-              "welcom/web_1",
-              "welcom/web_2",
-              "welcom/tool_1"
-            ]
-          },
-          {
-            "group": "活用ガイド",
-            "pages": [
-              "welcom/example_1",
-              "welcom/example_2",
-              "welcom/example_3",
-              "welcom/example_4",
-              "welcom/example_5"
-            ]
           }
         ]
       }
