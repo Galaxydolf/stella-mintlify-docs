@@ -32,9 +32,6 @@ title: "組み込み関数／変数の説明"
 
 &#x20;\[@\["DateFormatFromMills","your  mills", "your formats"]@]
 
-**説明：**
-
-![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MTk1MjZjOWZjM2QwMDVkOGFkYmUzZTVjNGNjNDQxYWVfcEozR2VCRndKdWJ1ZnBnNk5PTHRkTlU2SU1RZFVZMXVfVG9rZW46WWdCQ2JHQ1hBb1NkMW94VHJlOWMybnFUbkZjXzE3NDMwNDMzODU6MTc0MzA0Njk4NV9WNA)
 
 *示例：*
 
@@ -46,25 +43,23 @@ title: "組み込み関数／変数の説明"
 
 
 
-*例：*
-
 ## 日時文字列をミリ秒に変換
 
 &#x20;\[@\["DateStrToMills","your date", "your date format"]@]
 
-*例：*
+
 
 ## 日時文字列を秒に変換
 
 &#x20;\[@\["DateStrToSeconds","your date", "your date format"]@]
 
-*例：*
+
 
 ## 囲まれた文字列の抽出
 
 \[@\["ExtractAroundStr","your text", "your start str", "your end str"]@]
 
-*例：*
+
 
 ## 正規表現で最初にマッチした文字列を抽出
 
@@ -74,7 +69,7 @@ title: "組み込み関数／変数の説明"
 
 https://www.runoob.com/regexp/regexp-tutorial.html
 
-*例：*
+
 
 ## 正規表現でマッチしたすべての文字列を抽出
 
@@ -84,7 +79,7 @@ https://www.runoob.com/regexp/regexp-tutorial.html
 
 https://www.runoob.com/regexp/regexp-tutorial.html
 
-*例：*
+
 
 ## JSONオブジェクトを抽出
 
@@ -94,7 +89,7 @@ https://www.runoob.com/regexp/regexp-tutorial.html
 
 https://jsonpath.com/
 
-*例：*
+
 
 ## JSONから配列を抽出
 
@@ -104,7 +99,7 @@ https://jsonpath.com/
 
 https://jsonpath.com/
 
-*例：*
+
 
 ## 正規表現でJSONを抽出
 
@@ -114,37 +109,37 @@ https://jsonpath.com/
 
 https://www.runoob.com/regexp/regexp-tutorial.html
 
-*例：*
+
 
 ## 日付の加算と減算
 
 &#x20;\[@\["GetDateFromNow","your add/substract days"]@]
 
-*例：*
+
 
 ## URLエンコード
 
 * &#x20;*\[@\["UrlEncode","your text", "your charset, default is UTF-8"]@]*
 
-*例：*
+
 
 ## URLデコード
 
 &#x20;*\[@\["UrlDecode","your text", "your charset, default is UTF-8"]@]*
 
-*例：*
+
 
 ## *テキストから応答言語を自動判定*
 
 *\[@\["AutoSpecifyResponseLanguage","your text", "your default lang, The optional values are EN,CN, default value is CN"]@]*
 
-*例：*
+
 
 ## *文字列の置換*
 
 *&#x20;\[@\["Replace","your text", "your old str", "your new str"]@]*
 
-*例：*
+
 
 ## *文字列正規表現の置換*
 
@@ -154,19 +149,19 @@ https://www.runoob.com/regexp/regexp-tutorial.html
 
 https://www.runoob.com/regexp/regexp-tutorial.html
 
-*例：*
+
 
 ## *文字列エスケープ*
 
 *\[@\["EscapeStr","your text"]@]*
 
-例：
+
 
 ## &#x20;RSA暗号化
 
 *\[@\["RSAEncode","your text", "your public key"]@]*
 
-例：
+
 
 
 
@@ -174,37 +169,37 @@ https://www.runoob.com/regexp/regexp-tutorial.html
 
 *&#x20;\[@\["CaseWhenThen","your case value", "when value1", "then value1", "when value2", "then value2"..., "default value"]@]*
 
-例：
+
 
 ## *条件分岐（大文字小文字を区別）*
 
 *&#x20;\[@\["CaseWhenThenIgnoreCase","your case value", "when value1", "then value1", "when value2, optional", "then value2, optional"..., "default value, optional"]@]*
 
-例：
+
 
 ## *いずれかの値と等しいか*
 
 *\[@\["EqualsAny","your value", "your other value1", "your other value2, optional"...]@]*
 
-例：
+
 
 ## *いずれかの値と等しいか（大文字小文字区別）*
 
 *\[@\["EqualsAnyIgnoreCase","your value", "your other value1", "your other value2, optional"...]@]*
 
-例：
+
 
 ## *日時のフォーマット変換*
 
 *&#x20;\[@\["DateStrReFormat","your date", "your target format", "your source format, optional"]@]*
 
-例：
+
 
 ## 文字列の結合
 
 *&#x20;\[@\["Concat","your text1","your text2","your text3",...]@]*
 
-例：
+
 
 
 
@@ -212,24 +207,6 @@ https://www.runoob.com/regexp/regexp-tutorial.html
 
 *&#x20;\[@\["ConcatArray","your array1","your arr2","your arr3",...]@]*
 
-例：
 
 
 
-## 自然言語→日時変換（Jionlp）
-
-\[@\["JionlpParseTime","*your text1*"]@]
-
-例：
-
-\[@\["JionlpParseTime","今天"]@]
-
-**解説資料**
-
-[时间语义解析-说明文档](https://github.com/dongrixinyu/JioNLP/wiki/%E6%97%B6%E9%97%B4%E8%AF%AD%E4%B9%89%E8%A7%A3%E6%9E%90-%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3)
-
-それぞれの正規表現について詳しく学びたい場合は、以下の参考リンクを利用してください：
-
-* 正規表現：<https://www.runoob.com/regexp/regexp-tutorial.html>
-
-* JSONPath：<https://jsonpath.com/>
