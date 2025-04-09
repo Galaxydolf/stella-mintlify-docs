@@ -1,180 +1,435 @@
 ---
-title: "組み込み関数／変数の説明"
+title: "システム組み込み関数と変数の説明"
+description: "システムで利用可能な組み込み関数と変数の詳細ガイド"
 ---
 
-# 1、システム組込変数
+# システム組み込み変数
 
-## 使用方法（言語）
+## 基本的な使用方法
 
-&#123;&#123;var&#125;&#125;参照変数を示します
+変数を参照する場合は `{{var}}` の形式を使用します。
 
-## &#123;&#123;cTime&#125;&#125;現在の日時 yyyy-MM-dd HH:mm:ss
+| 変数名 | 説明 | 例 |
+|:-----------|:------------|:------------|
+| `{{cTime}}` | 現在の日時（yyyy-MM-dd HH:mm:ss形式） | `2023-04-01 12:30:45` |
+| `{{cMills}}` | 現在のUNIXタイムスタンプ（ミリ秒） | `1680345045000` |
+| `{{cWeekdayNum}}` | 曜日（数字表現） | `1`（月曜日）～`7`（日曜日） |
+| `{{cWeekdayEn}}` | 曜日（英語表現） | `Monday`, `Tuesday`など |
+| `{{cWeekdayEn2}}` | 曜日（英語略語） | `Mon`, `Tue`など |
+| `{{cWeekdayCn}}` | 曜日（中国語表現） | `星期一`, `星期二`など |
 
-## &#123;&#123;cMills&#125;&#125;現在のUNIXタイムスタンプ（ミリ秒）
+# システム組み込み関数
 
-## &#123;&#123;cWeekdayNum&#125;&#125;曜日-数字
+## 基本的な使用方法
 
-## &#123;&#123;cWeekdayEn&#125;&#125;曜日-英語
+関数を呼び出すには以下の形式を使用します：
 
-## &#123;&#123;cWeekdayEn2&#125;&#125;曜日-英語略語
+```
+[@["関数名", "引数1", "引数2", ...]@]
+```
 
-## &#123;&#123;cWeekdayCn&#125;&#125;曜日-中国語
+## 日時関連の関数
 
+日付や時間を操作・変換するための関数群です。
 
+### ミリ秒から日時への変換
 
-# 2、システム組込関数
+`DateFormatFromMills` - ミリ秒単位のタイムスタンプを指定した日時形式に変換します。
 
-## 使用方法（言語）
+**構文:**
+```
+[@["DateFormatFromMills", "ミリ秒", "フォーマット"]@]
+```
 
-\[@\["functionName", "args1", "args2",....]@] で関数を呼び出します。
+**例:**
+```
+[@["DateFormatFromMills", "1680345045000", "yyyy-MM-dd"]@]
+```
 
-## ミリ秒から日時へ変換
+### 秒から日時への変換
 
-&#x20;\[@\["DateFormatFromMills","your  mills", "your formats"]@]
+`DateFormatFromSeconds` - 秒単位のタイムスタンプを指定した日時形式に変換します。
 
-**説明：**
+**構文:**
+```
+[@["DateFormatFromSeconds", "秒", "フォーマット"]@]
+```
 
-![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YWVkZDRlNTEyOTUxZWMwNjQ3Y2VhNDE2ZjY0ZjUxYzhfMTEzdkN5UjNOWW1BaXQ3a3RUakY4R0tRTDBocUFIMzFfVG9rZW46WWdCQ2JHQ1hBb1NkMW94VHJlOWMybnFUbkZjXzE3NDQxMTYxNzM6MTc0NDExOTc3M19WNA)
+**例:**
+```
+[@["DateFormatFromSeconds", "1680345045", "yyyy-MM-dd"]@]
+```
 
-## 秒から日時へ変換
+### 日時文字列からミリ秒への変換
 
-&#x20;\[@\["DateFormatFromSeconds","your  seconds", "your formats"]@]
+`DateStrToMills` - 日時文字列をミリ秒単位のタイムスタンプに変換します。
 
-## 日時文字列をミリ秒に変換
+**構文:**
+```
+[@["DateStrToMills", "日時文字列", "日時フォーマット"]@]
+```
 
-&#x20;\[@\["DateStrToMills","your date", "your date format"]@]
+**例:**
+```
+[@["DateStrToMills", "2023-04-01", "yyyy-MM-dd"]@]
+```
 
-## 日時文字列を秒に変換
+### 日時文字列から秒への変換
 
-&#x20;\[@\["DateStrToSeconds","your date", "your date format"]@]
+`DateStrToSeconds` - 日時文字列を秒単位のタイムスタンプに変換します。
 
-## 囲まれた文字列の抽出
+**構文:**
+```
+[@["DateStrToSeconds", "日時文字列", "日時フォーマット"]@]
+```
 
-\[@\["ExtractAroundStr","your text", "your start str", "your end str"]@]
+**例:**
+```
+[@["DateStrToSeconds", "2023-04-01", "yyyy-MM-dd"]@]
+```
 
-## 正規表現で最初にマッチした文字列を抽出
+### 日時文字列のフォーマット変換
 
-&#x20;\[@\["ExtractStrByRegex","your text", "your regex"]@]
+`DateStrReFormat` - 日時文字列を異なるフォーマットに変換します。
 
-**正規表現の書き方を学ぶ：**
+**構文:**
+```
+[@["DateStrReFormat", "日時文字列", "変換後フォーマット", "変換前フォーマット(省略可)"]@]
+```
 
-https://www.runoob.com/regexp/regexp-tutorial.html
+**例:**
+```
+[@["DateStrReFormat", "2023-04-01", "MM/dd/yyyy"]@]
+```
 
-## 正規表現でマッチしたすべての文字列を抽出
+### 現在日時からの日数加減算
 
-&#x20;\[@\["ExtractArrByRegex","your text", "your regex"]@]
+`GetDateFromNow` - 現在日時から指定した日数を加減算します。
 
-**正規表現の書き方を学ぶ：**
+**構文:**
+```
+[@["GetDateFromNow", "加減算日数"]@]
+```
 
-https://www.runoob.com/regexp/regexp-tutorial.html
+**例:**
+```
+[@["GetDateFromNow", "7"]@]
+```
 
+### 自然言語から日時への変換
 
+`JionlpParseTime` - 自然言語表現を日時に変換します。
 
-## JSONオブジェクトを抽出
+**構文:**
+```
+[@["JionlpParseTime", "テキスト"]@]
+```
 
-&#x20;\[@\["ExtractJsonObj","your text", "your jsonpath"]@]
+**例:**
+```
+[@["JionlpParseTime", "今天"]@]
+```
 
-**JSON Pathを学ぶ:&#x20;**
+### 日時フォーマットの例
 
-https://jsonpath.com/
+![ミリ秒から日時への変換例](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YWVkZDRlNTEyOTUxZWMwNjQ3Y2VhNDE2ZjY0ZjUxYzhfMTEzdkN5UjNOWW1BaXQ3a3RUakY4R0tRTDBocUFIMzFfVG9rZW46WWdCQ2JHQ1hBb1NkMW94VHJlOWMybnFUbkZjXzE3NDQxMTYxNzM6MTc0NDExOTc3M19WNA)
 
+## 文字列処理関数
 
+テキストデータを操作・加工するための関数群です。
 
-## JSONから配列を抽出
+### 指定文字列間のテキスト抽出
 
-&#x20;\[@\["ExtractJsonArr","your text", "your jsonpath"]@]
+`ExtractAroundStr` - 指定された開始文字列と終了文字列の間のテキストを抽出します。
 
-**去学习JSON Pathを学ぶ:&#x20;**
+**構文:**
+```
+[@["ExtractAroundStr", "テキスト", "開始文字列", "終了文字列"]@]
+```
 
-https://jsonpath.com/
+**例:**
+```
+[@["ExtractAroundStr", "Hello World", "Hello", "World"]@]
+```
 
+### 文字列置換
 
+`Replace` - 文字列内の特定部分を置換します。
 
-## 正規表現でJSONを抽出
+**構文:**
+```
+[@["Replace", "テキスト", "置換対象", "置換後"]@]
+```
 
-\[@\["ExtractJsonByRegex","your text", "your json key1", "your json key1 regex", "your json key2", "your json key2 regex"]@]
+**例:**
+```
+[@["Replace", "Hello World", "World", "Earth"]@]
+```
 
-**正規表現の書き方を学ぶ：**
+### 正規表現による文字列置換
 
-https://www.runoob.com/regexp/regexp-tutorial.html
+`ReplaceRegex` - 正規表現にマッチする部分を置換します。
 
-## 日付の加算と減算
+**構文:**
+```
+[@["ReplaceRegex", "テキスト", "正規表現", "置換後"]@]
+```
 
-&#x20;\[@\["GetDateFromNow","your add/substract days"]@]
+**例:**
+```
+[@["ReplaceRegex", "Hello 123", "\\d+", "World"]@]
+```
 
-## URLエンコード
+### 文字列エスケープ
 
-&#x20;*\[@\["UrlEncode","your text", "your charset, default is UTF-8"]@]*
+`EscapeStr` - 特殊文字をエスケープします。
 
-## URLデコード
+**構文:**
+```
+[@["EscapeStr", "テキスト"]@]
+```
 
-&#x20;*\[@\["UrlDecode","your text", "your charset, default is UTF-8"]@]*
+**例:**
+```
+[@["EscapeStr", "Hello \"World\""]@]
+```
 
-## *テキストから応答言語を自動判定*
+### 文字列結合
 
-*\[@\["AutoSpecifyResponseLanguage","your text", "your default lang, The optional values are EN,CN, default value is CN"]@]*
+`Concat` - 複数の文字列を1つに結合します。
 
-## *文字列の置換*
+**構文:**
+```
+[@["Concat", "テキスト1", "テキスト2", ...]@]
+```
 
-*&#x20;\[@\["Replace","your text", "your old str", "your new str"]@]*
+**例:**
+```
+[@["Concat", "Hello", " ", "World"]@]
+```
 
-## *文字列正規表現の置換*
+### 配列結合
 
-*\[@\["ReplaceRegex","your text", "your regex str", "your new str"]@]*
+`ConcatArray` - 複数の配列を1つに結合します。
 
-**正規表現の書き方を学ぶ：**
+**構文:**
+```
+[@["ConcatArray", "配列1", "配列2", ...]@]
+```
 
-https://www.runoob.com/regexp/regexp-tutorial.html
+**例:**
+```
+[@["ConcatArray", "[1,2]", "[3,4]"]@]
+```
 
-## *文字列エスケープ*
+## URL関連の関数
 
-*\[@\["EscapeStr","your text"]@]*
+URL操作のための関数群です。
 
-## &#x20;RSA暗号化
+### URLエンコード
 
-*\[@\["RSAEncode","your text", "your public key"]@]*
+`UrlEncode` - 文字列をURL用にエンコードします。
 
-## *条件分岐（Case When Then）*
+**構文:**
+```
+[@["UrlEncode", "テキスト", "文字コード(デフォルトUTF-8)"]@]
+```
 
-*&#x20;\[@\["CaseWhenThen","your case value", "when value1", "then value1", "when value2", "then value2"..., "default value"]@]*
+**例:**
+```
+[@["UrlEncode", "Hello World"]@]
+```
 
-## *条件分岐（大文字小文字を区別）*
+### URLデコード
 
-*&#x20;\[@\["CaseWhenThenIgnoreCase","your case value", "when value1", "then value1", "when value2, optional", "then value2, optional"..., "default value, optional"]@]*
+`UrlDecode` - URLエンコードされた文字列をデコードします。
 
-## *いずれかの値と等しいか*
+**構文:**
+```
+[@["UrlDecode", "テキスト", "文字コード(デフォルトUTF-8)"]@]
+```
 
-*\[@\["EqualsAny","your value", "your other value1", "your other value2, optional"...]@]*
+**例:**
+```
+[@["UrlDecode", "Hello%20World"]@]
+```
 
-## *いずれかの値と等しいか（大文字小文字区別）*
+## 正規表現関連の関数
 
-*\[@\["EqualsAnyIgnoreCase","your value", "your other value1", "your other value2, optional"...]@]*
+正規表現を使ったテキスト操作のための関数群です。
 
-## *日時のフォーマット変換*
+### 正規表現で最初にマッチした文字列を抽出
 
-*&#x20;\[@\["DateStrReFormat","your date", "your target format", "your source format, optional"]@]*
+`ExtractStrByRegex` - 正規表現で最初にマッチした文字列を抽出します。
 
-## 文字列の結合
+**構文:**
+```
+[@["ExtractStrByRegex", "テキスト", "正規表現"]@]
+```
 
-*&#x20;\[@\["Concat","your text1","your text2","your text3",...]@]*
+**例:**
+```
+[@["ExtractStrByRegex", "abc123def", "\\d+"]@]
+```
 
-## 配列の結合
+### 正規表現でマッチしたすべての文字列を抽出
 
-*&#x20;\[@\["ConcatArray","your array1","your arr2","your arr3",...]@]*
+`ExtractArrByRegex` - 正規表現でマッチしたすべての文字列を抽出します。
 
-## 自然言語→日時変換（Jionlp）
+**構文:**
+```
+[@["ExtractArrByRegex", "テキスト", "正規表現"]@]
+```
 
-*\[@\["JionlpParseTime","your text1"]@]*
+**例:**
+```
+[@["ExtractArrByRegex", "abc123def456", "\\d+"]@]
+```
 
-*\[@\["JionlpParseTime","今天"]@]*
+**正規表現について詳しく学ぶには：** [正規表現チュートリアル](https://www.runoob.com/regexp/regexp-tutorial.html)
 
-**解説資料**
+## JSON関連の関数
 
-[时间语义解析-说明文档](https://github.com/dongrixinyu/JioNLP/wiki/%E6%97%B6%E9%97%B4%E8%AF%AD%E4%B9%89%E8%A7%A3%E6%9E%90-%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3)
+JSON操作のための関数群です。
 
-それぞれの正規表現について詳しく学びたい場合は、以下の参考リンクを利用してください：
+### JSONオブジェクト抽出
 
-* 正規表現：<https://www.runoob.com/regexp/regexp-tutorial.html>
+`ExtractJsonObj` - JSONPathを使ってJSONからデータを抽出します。
 
-* JSONPath：<https://jsonpath.com/>
+**構文:**
+```
+[@["ExtractJsonObj", "テキスト", "JSONPath"]@]
+```
 
+**例:**
+```
+[@["ExtractJsonObj", "{\"name\":\"John\"}", "$.name"]@]
+```
+
+### JSON配列抽出
+
+`ExtractJsonArr` - JSONPathを使ってJSON配列を抽出します。
+
+**構文:**
+```
+[@["ExtractJsonArr", "テキスト", "JSONPath"]@]
+```
+
+**例:**
+```
+[@["ExtractJsonArr", "{\"items\":[1,2,3]}", "$.items"]@]
+```
+
+### 正規表現でJSONを抽出
+
+`ExtractJsonByRegex` - 正規表現を使ってJSONを抽出します。
+
+**構文:**
+```
+[@["ExtractJsonByRegex", "テキスト", "JSON_キー1", "キー1正規表現", "JSON_キー2", "キー2正規表現"]@]
+```
+
+**例:**
+```
+[@["ExtractJsonByRegex", "text", "id", "\\d+", "name", "[a-z]+"]@]
+```
+
+**JSONPathについて詳しく学ぶには：** [JSONPath オンラインエバリュエータ](https://jsonpath.com/)
+
+## 条件分岐関数
+
+条件に基づいた値の選択のための関数群です。
+
+### 条件分岐（Case When Then）
+
+`CaseWhenThen` - 複数の条件と値のペアから条件に一致する値を返します。
+
+**構文:**
+```
+[@["CaseWhenThen", "比較値", "条件値1", "結果1", "条件値2", "結果2", ..., "デフォルト値"]@]
+```
+
+**例:**
+```
+[@["CaseWhenThen", "A", "A", "選択肢A", "B", "選択肢B", "その他"]@]
+```
+
+### 条件分岐（大文字小文字区別なし）
+
+`CaseWhenThenIgnoreCase` - 大文字小文字を区別せずに条件分岐します。
+
+**構文:**
+```
+[@["CaseWhenThenIgnoreCase", "比較値", "条件値1", "結果1", ...]@]
+```
+
+**例:**
+```
+[@["CaseWhenThenIgnoreCase", "a", "A", "選択肢A"]@]
+```
+
+### いずれかの値と等しいか
+
+`EqualsAny` - 値がリストのいずれかと一致するかを確認します。
+
+**構文:**
+```
+[@["EqualsAny", "比較値", "値1", "値2", ...]@]
+```
+
+**例:**
+```
+[@["EqualsAny", "A", "A", "B", "C"]@]
+```
+
+### いずれかの値と等しいか（大文字小文字区別なし）
+
+`EqualsAnyIgnoreCase` - 大文字小文字を区別せずに値の一致を確認します。
+
+**構文:**
+```
+[@["EqualsAnyIgnoreCase", "比較値", "値1", "値2", ...]@]
+```
+
+**例:**
+```
+[@["EqualsAnyIgnoreCase", "a", "A", "B"]@]
+```
+
+## その他の関数
+
+その他の特殊な目的のための関数です。
+
+### テキストから応答言語を自動判定
+
+`AutoSpecifyResponseLanguage` - テキストから言語を自動判定します。
+
+**構文:**
+```
+[@["AutoSpecifyResponseLanguage", "テキスト", "デフォルト言語(EN/CN)"]@]
+```
+
+**例:**
+```
+[@["AutoSpecifyResponseLanguage", "こんにちは", "EN"]@]
+```
+
+### RSA暗号化
+
+`RSAEncode` - テキストをRSA公開鍵で暗号化します。
+
+**構文:**
+```
+[@["RSAEncode", "テキスト", "公開鍵"]@]
+```
+
+**例:**
+```
+[@["RSAEncode", "secret", "MIGfMA..."]@]
+```
+
+## 関連資料
+
+- [自然言語日時変換の解説](https://github.com/dongrixinyu/JioNLP/wiki/%E6%97%B6%E9%97%B4%E8%AF%AD%E4%B9%89%E8%A7%A3%E6%9E%90-%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3)
+- [正規表現チュートリアル](https://www.runoob.com/regexp/regexp-tutorial.html)
+- [JSONPath オンラインエバリュエータ](https://jsonpath.com/)
