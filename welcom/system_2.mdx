@@ -1,0 +1,127 @@
+モデル管理は、エージェントの実行に必要な各種モデルを統合的に設定するページです。このページでは、モデルの選択、追加、設定、削除などを行うことができます。設定済みのモデルは、エージェントやナレッジベースの処理プロセスにおいて選択・使用することができます。
+
+
+
+## 機能アクセス
+
+管理者アカウントで管理バックエンドにログインし、「システム管理」-「モデル構成」を選択すると、アクセスできます。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDBlYzE3NGY5YmEyM2VhYWFjOTk5ZTRlYmNkNzQ2NDVfdFUxVjltbDBmOThsUXI1NW9DRElwOHhLalBMN0REUVpfVG9rZW46T3hlZ2I5OFJyb2lCdFh4M2tzUmNJdWM0bnlnXzE3NTAwNzI5NzI6MTc1MDA3NjU3Ml9WNA)
+
+
+
+## 追加方法
+
+### 1、主要モデルの追加
+
+プラットフォームは、OpenAI / Claude / Gemini などの主要モデルを直接追加および設定することをサポートしています。設定ページで、追加したいモデルを選択します。ここでは Gemini を例に挙げます。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YWJmMWYzMTk1ZTAzZWJjNTYzNmY4ZWUzOGVmODJjMThfNWUyVDdVV1VJTHJZY0o4MVBtUWdIcEZtUmh2NE5oV2JfVG9rZW46VFNnSWJ3MjRMb3R6Z294RXl3aGNFTU03bk1lXzE3NTAwNzI5NzI6MTc1MDA3NjU3Ml9WNA)
+
+
+
+ポップアップ表示される設定ボックスで、関連するパラメータを設定します。
+
+
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=NGE5ZjhkNmEwYWQ0MTI4YjRlNzkyOTg0YmFlMGM5OTNfTmxRVEVNbEZEVWJrOFJrdk0zN3F6VUtpY1BhTFBtUzhfVG9rZW46U2FZWmI4Q1V3b3RJd0x4T0thcmNlQUJ6bm5mXzE3NTAwNzI5NzI6MTc1MDA3NjU3Ml9WNA)
+
+| **項目名**               | **必須項目** | **設定説明**                                                                                                                                                                                                                                                                                                                        |
+| --------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **モデルロゴ**             | 必須       | モデル選択時に素早く識別できるよう、該当するモデルのロゴを選択します。既存モデルを素早く追加した場合、この項目はデフォルトでそのモデルのロゴになります。                                                                                                                                                                                                                                                    |
+| **モデルタイプ**            | 必須       | 追加するモデルのタイプに応じて選択します。・**会話モデル**：AIチャット、情報抽出、情報分類などのモジュールで使用され、テキストコンテンツを処理します。・**画像生成モデル**：「画像生成ツール」モジュールで使用され、自然言語に基づいて画像を生成します。・**テキストベクトルモデル**：ナレッジベース機能で、テキストスライスをベクトル化し類似度計算を行う際に使用されます。ナレッジベース追加時にカスタムテキストベクトルモデルを選択できます。・**リランキングモデル**：「ナレッジベース検索」モジュールで、検索結果のリランキング機能に使用されるモデルです。リランキングを追加することで、ナレッジベース検索結果の精度がさらに向上します |
+| **モデルファミリー**          | 任意       | 各モデルには、多くの場合、異なるコンテキストやパラメータ数を持つ複数の種類があります。この項目では、そのモデルが持つ異なる種類のモデルのデフォルト設定パラメータを提供し、選択すると以下のフィールド情報が自動入力されます。選択しない場合は、以下のフィールド情報を手動で入力する必要があります。                                                                                                                                                                               |
+| **Visionをサポートするかどうか** | 必須       | このモデルが視覚認識（マルチモーダル）機能をサポートするかどうかを設定します。                                                                                                                                                                                                                                                                                         |
+| **モデル名**              | 必須       | このモデルの名称を設定します。この名称はモデル選択ページに表示されます。                                                                                                                                                                                                                                                                                            |
+| **モデル選択**             | 必須       | このモジュールの実行に使用する大規模言語モデルを選択します。異なるモジュールで異なる大規模言語モデルを選択して処理することができます。                                                                                                                                                                                                                                                             |
+| **モデルコード**            | 必須       | API経由でこのモデルを呼び出す際に必要なモデルコードです。詳細はプラットフォームのAPIドキュメントをご確認ください。                                                                                                                                                                                                                                                                    |
+| **モデルコンテキストの長さ**      | 必須       | このモデルのコンテキスト長を入力します。モデルが実際にサポートするコンテキスト長に基づいて入力してください。                                                                                                                                                                                                                                                                          |
+| **最大トークン上限**          | 必須       | このモデルの最大トークン上限を入力します。モデルが実際にサポートする最大トークン上限に基づいて入力してください。                                                                                                                                                                                                                                                                        |
+| **apiUrl**            | 一部モデルで必須 | API経由でこのモデルを呼び出す際のAPIアドレスです。詳細はプラットフォームのAPIドキュメントをご確認ください。                                                                                                                                                                                                                                                                      |
+| **apiKey**            | 必須       | API経由でこのモデルを呼び出す際に必要なAPIキーです。詳細はプラットフォームのAPIドキュメントをご確認ください。                                                                                                                                                                                                                                                                     |
+| **includeUsage**      | 一部モデルで必須 | OpenAIの基準に基づき、一部のモデルでこのフィールドの設定が必要です。詳細はプラットフォームのAPIドキュメントをご確認ください。                                                                                                                                                                                                                                                             |
+
+パラメータを設定後、「**決定**」をクリックすると、そのモデルの追加が完了します。
+
+
+
+### 2. カスタムモデルの追加
+
+プラットフォームが提供する主要モデル以外にも、標準のOpenAPIプロトコルをサポートする他のモデルや、プライベートクラウド環境にデプロイされたモデルの接続もサポートしています。「モデル管理」ページの右上にある「**カスタムモデルを追加**」をクリックして設定を行ってください。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MmI3ODc5OGVmZjMyMzZiNjA2OTk5ZjMzMDNkYjlmOGJfMHBoQlB6QUVBVDQyUHlXdFdXb2VkR1BHanFBRTNjT3pfVG9rZW46V1phM2JEOEE3b3Fzand4SHRQamN3M3c0bjBkXzE3NTAwNzI5NzI6MTc1MDA3NjU3Ml9WNA)
+
+ポップアップ表示される設定ボックスで、関連するパラメータを設定します。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=MzAyNzQ1MGNlZTEyNmIzNmE2YTM5YzU2MmVhNTkwMTlfVEVoRG5yVHRBYVZmM3MzY09ncFhsR1hZQVRWdWFyb1NfVG9rZW46Uk1yRmJWbXQyb0k2VDJ4T3hyWGNXcVBqbnBtXzE3NTAwNzI5NzI6MTc1MDA3NjU3Ml9WNA)
+
+| **項目名**               | **必須項目** | **設定説明**                                                                                                                                                                                                                                                                                                                        |
+| --------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **モデルロゴ**             | 必須       | モデル選択時に素早く識別できるよう、該当するモデルのロゴを選択します。既存モデルを素早く追加した場合、この項目はデフォルトでそのモデルのロゴになります。                                                                                                                                                                                                                                                    |
+| **モデルタイプ**            | 必須       | 追加するモデルのタイプに応じて選択します。・**会話モデル**：AIチャット、情報抽出、情報分類などのモジュールで使用され、テキストコンテンツを処理します。・**画像生成モデル**：「画像生成ツール」モジュールで使用され、自然言語に基づいて画像を生成します。・**テキストベクトルモデル**：ナレッジベース機能で、テキストスライスをベクトル化し類似度計算を行う際に使用されます。ナレッジベース追加時にカスタムテキストベクトルモデルを選択できます。・**リランキングモデル**：「ナレッジベース検索」モジュールで、検索結果のリランキング機能に使用されるモデルです。リランキングを追加することで、ナレッジベース検索結果の精度がさらに向上します |
+| **モデルファミリー**          | 任意       | 各モデルには、多くの場合、異なるコンテキストやパラメータ数を持つ複数の種類があります。この項目では、そのモデルが持つ異なる種類のモデルのデフォルト設定パラメータを提供し、選択すると以下のフィールド情報が自動入力されます。選択しない場合は、以下のフィールド情報を手動で入力する必要があります。                                                                                                                                                                               |
+| **Visionをサポートするかどうか** | 必須       | このモデルが視覚認識（マルチモーダル）機能をサポートするかどうかを設定します。                                                                                                                                                                                                                                                                                         |
+| **モデル名**              | 必須       | このモデルの名称を設定します。この名称はモデル選択ページに表示されます。                                                                                                                                                                                                                                                                                            |
+| **モデル選択**             | 必須       | このモジュールの実行に使用する大規模言語モデルを選択します。異なるモジュールで異なる大規模言語モデルを選択して処理することができます。                                                                                                                                                                                                                                                             |
+| **モデルコード**            | 必須       | API経由でこのモデルを呼び出す際に必要なモデルコードです。詳細はプラットフォームのAPIドキュメントをご確認ください。                                                                                                                                                                                                                                                                    |
+| **モデルコンテキストの長さ**      | 必須       | このモデルのコンテキスト長を入力します。モデルが実際にサポートするコンテキスト長に基づいて入力してください。                                                                                                                                                                                                                                                                          |
+| **最大トークン上限**          | 必須       | このモデルの最大トークン上限を入力します。モデルが実際にサポートする最大トークン上限に基づいて入力してください。                                                                                                                                                                                                                                                                        |
+| **apiUrl**            | 必須       | API経由でこのモデルを呼び出す際のAPIアドレスです。詳細はプラットフォームのAPIドキュメントをご確認ください。                                                                                                                                                                                                                                                                      |
+| **apiKey**            | 任意       | API経由でこのモデルを呼び出す際に必要なAPIキーです。詳細はプラットフォームのAPIドキュメントをご確認ください。                                                                                                                                                                                                                                                                     |
+| **includeUsage**      | 任意       | OpenAIの基準に基づき、一部のモデルでこのフィールドの設定が必要です。詳細はプラットフォームのAPIドキュメントをご確認ください。                                                                                                                                                                                                                                                             |
+| **fullUrl**           | 任意       | リランキングモデルの設定項目については、対応するAPIパスを提供してください。詳細はプラットフォームのAPIドキュメントをご確認ください。                                                                                                                                                                                                                                                           |
+
+パラメータを設定後、「**決定**」をクリックすると、そのモデルの追加が完了します。
+
+
+
+
+
+## モデルテスト
+
+モデルの追加後、上記のモデルリストで現在プラットフォームに追加されているモデルを確認でき、エージェント／ナレッジベースのシナリオで呼び出しや使用が可能です。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=OTQzZjRmOGZkMzNhY2RiN2RmNzE5ZjU1MjY4ZDc3ZTRfZnh2Y1dmSE5PREI0UzA3aXJkOHA5ck9IUzRvSWh5NUhfVG9rZW46TldNbGJSUGxHbzM0c2R4cE5yeGN3TElqbnFnXzE3NTAwNzI5NzI6MTc1MDA3NjU3Ml9WNA)
+
+上記は例であり、実際のモデル追加に従ってください。
+
+
+
+#### 　**テキストモデルテスト**
+
+トップページで新規エージェントを作成した後、「スマートチャット」モジュールで「モデルを選択」し、先ほど追加したモデルに切り替えて保存すると、会話テストを行うことができます。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YWMxNjM2NzU5YzRmOWM1MTk0OWMxM2ZiNTU3ODM3ZThfdHNITHduWUpEcElhUUswSElrUllsdEFGQWhCeDYxVHlfVG9rZW46VWVyRGJBS2hKb202OUt4OVpZaWNSY2pHbmFmXzE3NTAwNzI5NzI6MTc1MDA3NjU3Ml9WNA)
+
+
+
+
+
+#### **画像生成モデルテスト**
+
+トップページで新規エージェントを作成した後、「画像生成ツール」モジュールで「モデルを選択」し、先ほど追加したモデルに切り替えて保存すると、会話テストを行うことができます。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=NzIxOTRhOTY3MGMyMTVjYjFmZGZmYmU1ZDZmODlhZjdfcUVJS0F2TnBZSmp4alR3V29UeGRpY0lYdkxDWUx3elFfVG9rZW46QlBMWGJEcTdUbzl1ZXZ4QWFsc2NxR1dLbkRlXzE3NTAwNzI5NzI6MTc1MDA3NjU3Ml9WNA)
+
+
+
+
+
+#### **テキストベクトルモデルテスト**
+
+「ナレッジベース」で新規ナレッジベースを作成する際、「手動」設定を選択すると、ベクトルモデルの箇所で追加済みのモデルを選択できます。
+
+次に保存をクリックした後、ドキュメントファイルをアップロードしてベクトル化解析を行い、当該ベクトルモデルをテストできます。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=ZDYzNjY5YjQ5YmIzMTU5NjM2ZTdhYTFmMGNlNWQxMWJfV1IzNEJrdmNqbERJeTBvUXdaTWZ6ZUdMS3JPNlBKUWZfVG9rZW46TUZUTWJhYWNwb2dCQ0p4eFVmVGN6aUFYbjJlXzE3NTAwNzI5NzI6MTc1MDA3NjU3Ml9WNA)
+
+
+
+
+
+#### **リランキングモデルテスト**
+
+ドキュメントファイルがアップロード済みのナレッジベースに入り、左側の「検索テスト」をクリックし、「リランキングモデル」を有効にして、先ほど追加したリランキングモデルを選択すると、関連するテストテキストを入力してテストを行うことができます。
+
+![](https://uxkpl4cba3j.feishu.cn/space/api/box/stream/download/asynccode/?code=YjJhNDQwNTAwODI0MGI5M2U1M2VhYzQ4NmRkNjFjZGRfWkVLTjByN2tkc0R1TXFablEzaW4ydWt5eVlQbmFTWHFfVG9rZW46U0hHd2JoS0w0b3doVE94RXRscGNLcHhHbnRiXzE3NTAwNzI5NzI6MTc1MDA3NjU3Ml9WNA)
+
