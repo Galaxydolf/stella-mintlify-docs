@@ -71,10 +71,11 @@
             ]
           },
           {
-            "group": "権限管理",
+            "group": "権限管理とシステム設定",
             "pages": [
               "welcom/system_1",
-              "welcom/system_2"
+              "welcom/system_2",
+              "welcom/system_3"
             ]
           },
           {
