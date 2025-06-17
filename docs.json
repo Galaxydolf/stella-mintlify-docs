@@ -73,7 +73,8 @@
           {
             "group": "権限管理",
             "pages": [
-              "welcom/system_1"
+              "welcom/system_1",
+              "welcom/system_2"
             ]
           },
           {
